@@ -300,8 +300,8 @@ const setSemana = (semana) => {
                 hora,
                 puesto,
             };
-            if (name === "nada") console.log("Error Revisar condiciones");
-            name = "nada";
+            if (name === "") console.log("Error Revisar condiciones");
+            name = "";
         }
         for (const trab of trabajadores) {
             trab.yajornada = false;

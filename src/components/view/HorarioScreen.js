@@ -10,7 +10,7 @@ export const HorarioScreen = () => {
     const options = trabajadores.map((item) => item.name);
 
     useEffect(() => {
-        setTrabas(setHorarioOrden(trabajadores));
+        setTrabas(setHorarioOrden(mistrabajadores));
         console.log("efe");
     }, [mistrabajadores]);
 

@@ -56,6 +56,9 @@ export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
             onChange={handleChange}
             input={<BootstrapInput />}
         >
+            <MenuItem value="">
+                <em>None</em>
+            </MenuItem>
             {options.map((item, i) => {
                 return (
                     <MenuItem key={i} value={item}>
