@@ -7,63 +7,67 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { SelectTable } from "../select/select";
 
 const useStyles = makeStyles({
-  table: {
-    maxWidth: "100%",
-    minWidth: 200,
-    padding: 0,
-    margin: 0,
-  },
+    table: {
+        minWidth: 200,
+        padding: "0 !important",
+    },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+export default function SimpleTable({ setTrabas, trabs, options }) {
+    const classes = useStyles();
 
-const rows = [
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-  createData("Lolo", "Lolo", "Victor", "Edward", "Edward"),
-];
+    const cabecera = ["?", "L", "M", "X", "J", "V", "S", "D"];
+    const col1 = ["Mt", "M", "Tt", "T", "N", "L", "L"];
 
-export default function SimpleTable() {
-  const classes = useStyles();
-
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">L</TableCell>
-            <TableCell align="center">M</TableCell>
-            <TableCell align="center">X</TableCell>
-            <TableCell align="center">J</TableCell>
-            <TableCell align="center">V</TableCell>
-            <TableCell align="center">S</TableCell>
-            <TableCell align="center">D</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={new Date().getTime()}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="center">{row.calories}</TableCell>
-              <TableCell align="center">{row.fat}</TableCell>
-              <TableCell align="center">{row.carbs}</TableCell>
-              <TableCell align="center">{row.protein}</TableCell>
-              <TableCell align="center">{row.protein}</TableCell>
-              <TableCell align="center">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+    return (
+        <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        {cabecera.map((item) => {
+                            return (
+                                <TableCell hey={item} align="center">
+                                    {item}
+                                </TableCell>
+                            );
+                        })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {trabs.map((row, i) => (
+                        <TableRow key={i}>
+                            <TableCell
+                                align="center"
+                                key={i + "1"}
+                                component="th"
+                                scope="row"
+                            >
+                                {col1[i]}
+                            </TableCell>
+                            {row.map((cel, x) => {
+                                return (
+                                    <TableCell
+                                        key={i}
+                                        component="th"
+                                        scope="row"
+                                    >
+                                        <SelectTable
+                                            setTrabas={setTrabas}
+                                            key={(i, x)}
+                                            myKey={[i, x]}
+                                            value={cel.name[0]}
+                                            options={options}
+                                        />
+                                    </TableCell>
+                                );
+                            })}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 }
