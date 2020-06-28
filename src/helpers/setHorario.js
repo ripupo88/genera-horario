@@ -7,7 +7,9 @@ const setHorario = (trabajadores) => {
     item.map((f) => {
       //   if (f.puesto === "tienda")
       console.log(f.hora, f.dia, f.puesto, f.name);
+      return "";
     });
+    return "";
   });
 };
 
@@ -186,6 +188,8 @@ const setSemana = () => {
           }
           puesto = "pista";
           hora = "tarde";
+          break;
+        default:
           break;
       }
       semana[i][x] = {
