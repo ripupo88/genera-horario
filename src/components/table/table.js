@@ -24,7 +24,11 @@ export default function SimpleTable({ setTrabas, trabs, options }) {
 
     return (
         <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table
+                className={classes.table}
+                size="small"
+                aria-label="simple table"
+            >
                 <TableHead>
                     <TableRow>
                         {cabecera.map((item, i) => {
