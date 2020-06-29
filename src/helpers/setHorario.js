@@ -106,7 +106,10 @@ const setSemana = (semana) => {
                 case 0:
                     for (const trab of trabajadores) {
                         if (trab.yajornada) continue;
-                        if (trab.libre[0] === i || trab.libre[1] === i) {
+                        if (
+                            trab.semana.horario[i].valor === "L" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             name = trab.name;
                             break;
                         }
@@ -127,7 +130,10 @@ const setSemana = (semana) => {
                 case 1:
                     for (const trab of trabajadores) {
                         if (trab.yajornada) continue;
-                        if (trab.libre[0] === i || trab.libre[1] === i) {
+                        if (
+                            trab.semana.horario[i].valor === "L1" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             name = trab.name;
                             break;
                         }
@@ -137,7 +143,7 @@ const setSemana = (semana) => {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
-                            trab.semana.horario[i].valor = "L";
+                            trab.semana.horario[i].valor = "L1";
                             break;
                         }
                     }
@@ -147,12 +153,15 @@ const setSemana = (semana) => {
 
                 case 2:
                     for (const trab of trabajadores) {
-                        if (trab.semana.horario[i].valor === "N") {
+                        if (
+                            trab.semana.horario[i].valor === "N" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             trab.semana.horario[i].valor = "N";
                             name = trab.name;
                             break;
                         }
-                        if (trab.semana.horario[i].valor != null) continue;
+
                         if (trab.yajornada) continue;
                         if (trab.noche < 1) continue;
                         if (trab.noche > puntos) {
@@ -174,14 +183,17 @@ const setSemana = (semana) => {
 
                 case 3:
                     for (const trab of trabajadores) {
-                        if (trab.semana.horario[i].valor === "Mt") {
+                        if (trab.fuenoche) continue;
+                        if (
+                            trab.semana.horario[i].valor === "Mt" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             trab.semana.horario[i].valor = "Mt";
                             name = trab.name;
                             break;
                         }
-                        if (trab.semana.horario[i].valor != null) continue;
+
                         if (trab.yajornada) continue;
-                        if (trab.fuenoche) continue;
                         if (trab.tienda < 1) continue;
                         if (trab.manana < 1) continue;
                         if (!trab.fuetarde)
@@ -206,14 +218,17 @@ const setSemana = (semana) => {
 
                 case 4:
                     for (const trab of trabajadores) {
-                        if (trab.semana.horario[i].valor === "M") {
+                        if (trab.fuenoche) continue;
+                        if (
+                            trab.semana.horario[i].valor === "M" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             trab.semana.horario[i].valor = "M";
                             name = trab.name;
                             break;
                         }
-                        if (trab.semana.horario[i].valor != null) continue;
+
                         if (trab.yajornada) continue;
-                        if (trab.fuenoche) continue;
                         if (trab.pista < 1) continue;
                         if (trab.manana < 1) continue;
                         if (!trab.fuetarde)
@@ -238,14 +253,17 @@ const setSemana = (semana) => {
 
                 case 5:
                     for (const trab of trabajadores) {
-                        if (trab.semana.horario[i].valor === "Tt") {
+                        if (trab.fuenoche) continue;
+                        if (
+                            trab.semana.horario[i].valor === "Tt" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             trab.semana.horario[i].valor = "Tt";
                             name = trab.name;
                             break;
                         }
-                        if (trab.semana.horario[i].valor != null) continue;
+
                         if (trab.yajornada) continue;
-                        if (trab.fuenoche) continue;
                         if (trab.tienda < 1) continue;
                         if (trab.tarde + trab.tienda > puntos) {
                             puntos = trab.tarde + trab.tienda;
@@ -266,14 +284,17 @@ const setSemana = (semana) => {
 
                 case 6:
                     for (const trab of trabajadores) {
-                        if (trab.semana.horario[i].valor === "T") {
+                        if (trab.fuenoche) continue;
+                        if (
+                            trab.semana.horario[i].valor === "T" &&
+                            trab.semana.horario[i].forced
+                        ) {
                             trab.semana.horario[i].valor = "T";
                             name = trab.name;
                             break;
                         }
-                        if (trab.semana.horario[i].valor != null) continue;
+
                         if (trab.yajornada) continue;
-                        if (trab.fuenoche) continue;
                         if (trab.pista < 1) continue;
                         if (trab.tarde + trab.pista > puntos) {
                             puntos = trab.tarde + trab.pista;

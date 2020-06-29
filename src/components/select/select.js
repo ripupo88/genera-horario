@@ -31,16 +31,27 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
-    const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L"];
+    const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
     const handleChange = (e) => {
-        console.log(myKey);
+        console.log(e);
 
         setTrabas((trab) => {
             let newtrab = [...trab];
+            let old;
             for (const t of newtrab) {
                 if (t.name === e.target.value) {
+                    old = t.semana.horario[myKey[1]].valor;
                     t.semana.horario[myKey[1]].valor = puestos[myKey[0]];
                     t.semana.horario[myKey[1]].forced = true;
+                }
+            }
+            for (const tt of newtrab) {
+                if (
+                    tt.semana.horario[myKey[1]].valor === puestos[myKey[0]] &&
+                    tt.name != e.target.value
+                ) {
+                    tt.semana.horario[myKey[1]].valor = old;
+                    tt.semana.horario[myKey[1]].forced = true;
                 }
             }
             console.log(newtrab);

@@ -27,9 +27,14 @@ export default function SimpleTable({ setTrabas, trabs, options }) {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        {cabecera.map((item) => {
+                        {cabecera.map((item, i) => {
                             return (
-                                <TableCell hey={item} align="center">
+                                <TableCell
+                                    key={item + 1}
+                                    style={{ backgroundColor: "#5982DE" }}
+                                    hey={item}
+                                    align="center"
+                                >
                                     {item}
                                 </TableCell>
                             );
@@ -40,8 +45,9 @@ export default function SimpleTable({ setTrabas, trabs, options }) {
                     {trabs.map((row, i) => (
                         <TableRow key={i}>
                             <TableCell
+                                style={{ backgroundColor: "#5982DE" }}
                                 align="center"
-                                key={i + "1"}
+                                key={i}
                                 component="th"
                                 scope="row"
                             >
@@ -50,13 +56,18 @@ export default function SimpleTable({ setTrabas, trabs, options }) {
                             {row.map((cel, x) => {
                                 return (
                                     <TableCell
-                                        key={i}
+                                        style={
+                                            i > 4
+                                                ? { backgroundColor: "#64BBFA" }
+                                                : { backgroundColor: "#fff" }
+                                        }
+                                        key={i + "i" + x}
                                         component="th"
                                         scope="row"
                                     >
                                         <SelectTable
                                             setTrabas={setTrabas}
-                                            key={(i, x)}
+                                            key={i + "x" + x}
                                             myKey={[i, x]}
                                             value={cel.name[0]}
                                             options={options}
