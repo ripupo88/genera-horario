@@ -48,7 +48,7 @@ export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
             for (const tt of newtrab) {
                 if (
                     tt.semana.horario[myKey[1]].valor === puestos[myKey[0]] &&
-                    tt.name != e.target.value
+                    tt.name !== e.target.value
                 ) {
                     tt.semana.horario[myKey[1]].valor = old;
                     tt.semana.horario[myKey[1]].forced = true;

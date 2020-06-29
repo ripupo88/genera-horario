@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import setHorarioOrden, { cleanSemana } from "../../helpers/setHorario";
+import setHorarioOrden from "../../helpers/setHorario";
 import { trabajadores } from "../../info/trabajadores";
 import SimpleTable from "../table/table";
 import { Container } from "@material-ui/core";
