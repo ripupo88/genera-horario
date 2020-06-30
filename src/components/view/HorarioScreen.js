@@ -9,16 +9,13 @@ export const HorarioScreen = () => {
     const [mistrabajadores, setMistrabajadores] = useState(trabajadores);
     const [trabs, setTrabas] = useState(mydefault);
     const options = trabajadores.map((item) => item.name);
-    console.log(trabs);
 
     useEffect(() => {
         let myset = setHorarioOrden(mistrabajadores);
 
         if (!comprobacion(myset)) {
-            console.log("true");
             myset = [...mydefault, myset[5], myset[6]];
         }
-
         setTrabas(myset);
     }, [mistrabajadores]);
 

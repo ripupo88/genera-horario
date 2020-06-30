@@ -61,7 +61,9 @@ export default function SimpleTable({ setTrabas, trabs, options }) {
                                 return (
                                     <TableCell
                                         style={
-                                            i > 4
+                                            cel.esRenganche
+                                                ? { backgroundColor: "#64BBFA" }
+                                                : i > 4
                                                 ? { backgroundColor: "#64BBFA" }
                                                 : { backgroundColor: "#fff" }
                                         }

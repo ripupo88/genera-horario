@@ -32,9 +32,8 @@ const BootstrapInput = withStyles((theme) => ({
 
 export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
     const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
-    const handleChange = (e) => {
-        console.log(e);
 
+    const handleChange = (e) => {
         setTrabas((trab) => {
             let newtrab = [...trab];
             let old;
@@ -51,10 +50,10 @@ export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
                     tt.name !== e.target.value
                 ) {
                     tt.semana.horario[myKey[1]].valor = old;
-                    tt.semana.horario[myKey[1]].forced = true;
+                    tt.semana.horario[myKey[1]].forced = false;
                 }
             }
-            console.log(newtrab);
+
             return newtrab;
         });
     };

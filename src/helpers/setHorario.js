@@ -10,15 +10,6 @@ const setHorarioOrden = (trabajadores) => {
     let orden = setHorario(trabajadores);
     let newOrden = [
         [
-            orden[0][3],
-            orden[1][3],
-            orden[2][3],
-            orden[3][3],
-            orden[4][3],
-            orden[5][3],
-            orden[6][3],
-        ],
-        [
             orden[0][4],
             orden[1][4],
             orden[2][4],
@@ -28,13 +19,13 @@ const setHorarioOrden = (trabajadores) => {
             orden[6][4],
         ],
         [
-            orden[0][5],
-            orden[1][5],
-            orden[2][5],
-            orden[3][5],
-            orden[4][5],
-            orden[5][5],
-            orden[6][5],
+            orden[0][3],
+            orden[1][3],
+            orden[2][3],
+            orden[3][3],
+            orden[4][3],
+            orden[5][3],
+            orden[6][3],
         ],
         [
             orden[0][6],
@@ -44,6 +35,15 @@ const setHorarioOrden = (trabajadores) => {
             orden[4][6],
             orden[5][6],
             orden[6][6],
+        ],
+        [
+            orden[0][5],
+            orden[1][5],
+            orden[2][5],
+            orden[3][5],
+            orden[4][5],
+            orden[5][5],
+            orden[6][5],
         ],
         [
             orden[0][2],
@@ -102,6 +102,8 @@ const setSemana = (semana) => {
     for (let i = 0; i < semana.length; i++) {
         for (let x = 0; x < semana[i].length; x++) {
             puntos = -1;
+            let candidatos = [];
+            let esRenganche = false;
             switch (x) {
                 case 0:
                     for (const trab of trabajadores) {
@@ -185,41 +187,6 @@ const setSemana = (semana) => {
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
                         if (
-                            trab.semana.horario[i].valor === "Mt" &&
-                            trab.semana.horario[i].forced
-                        ) {
-                            trab.semana.horario[i].valor = "Mt";
-                            name = trab.name;
-                            break;
-                        }
-
-                        if (trab.yajornada) continue;
-                        if (trab.tienda < 1) continue;
-                        if (trab.manana < 1) continue;
-                        if (!trab.fuetarde)
-                            doblapuntos = trab.manana + trab.tienda;
-                        if (doblapuntos > puntos) {
-                            puntos = doblapuntos;
-                            name = trab.name;
-                        }
-                    }
-                    for (const trab of trabajadores) {
-                        if (trab.name === name) {
-                            trab.yajornada = true;
-                            trab.fuenoche = false;
-                            trab.fuetarde = false;
-                            trab.semana.horario[i].valor = "Mt";
-                        }
-                    }
-                    doblapuntos = 0;
-                    puesto = "tienda";
-                    hora = "mañana";
-                    break;
-
-                case 4:
-                    for (const trab of trabajadores) {
-                        if (trab.fuenoche) continue;
-                        if (
                             trab.semana.horario[i].valor === "M" &&
                             trab.semana.horario[i].forced
                         ) {
@@ -231,15 +198,29 @@ const setSemana = (semana) => {
                         if (trab.yajornada) continue;
                         if (trab.pista < 1) continue;
                         if (trab.manana < 1) continue;
-                        if (!trab.fuetarde)
-                            doblapuntos = trab.manana + trab.pista;
+                        if (!trab.fuetarde) {
+                            doblapuntos = trab.manana;
+                        } else {
+                            doblapuntos = 0;
+                        }
+
                         if (doblapuntos > puntos) {
                             puntos = doblapuntos;
-                            name = trab.name;
+                            // sacar un array de los que puden trabajar de mañana para luego obtener el que debe estar en cada puesto (tienda/pista)
+                            candidatos = [
+                                ...candidatos,
+                                { name: trab.name, pista: trab.pista },
+                            ];
                         }
                     }
+                    console.log(candidatos);
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
+                            if (trab.fuetarde) {
+                                esRenganche = true;
+                            } else {
+                                esRenganche = false;
+                            }
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
@@ -251,38 +232,50 @@ const setSemana = (semana) => {
                     doblapuntos = 0;
                     break;
 
-                case 5:
+                case 4:
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
                         if (
-                            trab.semana.horario[i].valor === "Tt" &&
+                            trab.semana.horario[i].valor === "Mt" &&
                             trab.semana.horario[i].forced
                         ) {
-                            trab.semana.horario[i].valor = "Tt";
+                            trab.semana.horario[i].valor = "Mt";
                             name = trab.name;
                             break;
                         }
 
                         if (trab.yajornada) continue;
                         if (trab.tienda < 1) continue;
-                        if (trab.tarde + trab.tienda > puntos) {
-                            puntos = trab.tarde + trab.tienda;
+                        if (trab.manana < 1) continue;
+                        if (!trab.fuetarde) {
+                            doblapuntos = trab.manana + trab.pista;
+                        } else {
+                            doblapuntos = 0;
+                        }
+                        if (doblapuntos > puntos) {
+                            puntos = doblapuntos;
                             name = trab.name;
                         }
                     }
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
+                            if (trab.fuetarde) {
+                                esRenganche = true;
+                            } else {
+                                esRenganche = false;
+                            }
                             trab.yajornada = true;
                             trab.fuenoche = false;
-                            trab.fuetarde = true;
-                            trab.semana.horario[i].valor = "Tt";
+                            trab.fuetarde = false;
+                            trab.semana.horario[i].valor = "Mt";
                         }
                     }
+                    doblapuntos = 0;
                     puesto = "tienda";
-                    hora = "tarde";
+                    hora = "mañana";
                     break;
 
-                case 6:
+                case 5:
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
                         if (
@@ -314,14 +307,46 @@ const setSemana = (semana) => {
                     break;
                 default:
                     break;
+
+                case 6:
+                    for (const trab of trabajadores) {
+                        if (trab.fuenoche) continue;
+                        if (
+                            trab.semana.horario[i].valor === "Tt" &&
+                            trab.semana.horario[i].forced
+                        ) {
+                            trab.semana.horario[i].valor = "Tt";
+                            name = trab.name;
+                            break;
+                        }
+
+                        if (trab.yajornada) continue;
+                        if (trab.tienda < 1) continue;
+                        if (trab.tarde + trab.tienda > puntos) {
+                            puntos = trab.tarde + trab.tienda;
+                            name = trab.name;
+                        }
+                    }
+                    for (const trab of trabajadores) {
+                        if (trab.name === name) {
+                            trab.yajornada = true;
+                            trab.fuenoche = false;
+                            trab.fuetarde = true;
+                            trab.semana.horario[i].valor = "Tt";
+                        }
+                    }
+                    puesto = "tienda";
+                    hora = "tarde";
+                    break;
             }
             semana[i][x] = {
                 name: [name],
+                esRenganche,
                 dia: dia[i],
                 hora,
                 puesto,
             };
-            if (name === "") console.log("Error Revisar condiciones");
+
             name = "";
         }
         for (const trab of trabajadores) {
