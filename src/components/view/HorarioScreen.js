@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import setHorarioOrden from "../../helpers/setHorario";
 import { trabajadores } from "../../info/trabajadores";
 import SimpleTable from "../table/table";
 import { Container } from "@material-ui/core";
 import { mydefault } from "./default";
+import Chips from "../chip/Chip";
+import SimpleCollapse from "../fade/Fade";
+
+export const TrabajadoresContext = createContext();
 
 export const HorarioScreen = () => {
+    const [index, setIndex] = useState(0);
+    const [checked, setChecked] = useState(false);
     const [mistrabajadores, setMistrabajadores] = useState(trabajadores);
     const [trabs, setTrabas] = useState(mydefault);
     const options = trabajadores.map((item) => item.name);
@@ -20,15 +26,30 @@ export const HorarioScreen = () => {
     }, [mistrabajadores]);
 
     return (
-        <div style={{ paddingTop: "50px" }}>
-            <Container maxWidth="md">
-                <SimpleTable
-                    setTrabas={setMistrabajadores}
-                    trabs={trabs}
-                    options={options}
-                />
-            </Container>
-        </div>
+        <TrabajadoresContext.Provider
+            value={{
+                mistrabajadores,
+                setMistrabajadores,
+                trabajadores,
+                checked,
+                setChecked,
+                index,
+                setIndex,
+            }}
+        >
+            <div style={{ paddingTop: "50px" }}>
+                <Container maxWidth="md">
+                    <SimpleTable
+                        setTrabas={setMistrabajadores}
+                        trabs={trabs}
+                        options={options}
+                    />
+                    <Chips />
+                    <SimpleCollapse />
+                    <h3>mi otra cosa para poner</h3>
+                </Container>
+            </div>
+        </TrabajadoresContext.Provider>
     );
 };
 

@@ -102,7 +102,6 @@ const setSemana = (semana) => {
     for (let i = 0; i < semana.length; i++) {
         for (let x = 0; x < semana[i].length; x++) {
             puntos = -1;
-            let candidatos = [];
             let esRenganche = false;
             switch (x) {
                 case 0:
@@ -199,21 +198,16 @@ const setSemana = (semana) => {
                         if (trab.pista < 1) continue;
                         if (trab.manana < 1) continue;
                         if (!trab.fuetarde) {
-                            doblapuntos = trab.manana;
+                            doblapuntos = trab.manana + trab.pista;
                         } else {
                             doblapuntos = 0;
                         }
-
                         if (doblapuntos > puntos) {
                             puntos = doblapuntos;
-                            // sacar un array de los que puden trabajar de mañana para luego obtener el que debe estar en cada puesto (tienda/pista)
-                            candidatos = [
-                                ...candidatos,
-                                { name: trab.name, pista: trab.pista },
-                            ];
+                            name = trab.name;
                         }
                     }
-                    console.log(candidatos);
+
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             if (trab.fuetarde) {
