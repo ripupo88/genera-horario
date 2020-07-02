@@ -1,13 +1,5 @@
-import { trabajadores } from "../info/trabajadores";
-
-const setHorario = (trabajadores) => {
-    const newsemana = cleanSemana();
-    let semana = setSemana(newsemana);
-    return semana;
-};
-
-const setHorarioOrden = (trabajadores) => {
-    let orden = setHorario(trabajadores);
+const setHorarioOrden = (trabajadores, automat) => {
+    let orden = setHorario(trabajadores, automat);
     let newOrden = [
         [
             orden[0][4],
@@ -76,6 +68,12 @@ const setHorarioOrden = (trabajadores) => {
     return newOrden;
 };
 
+const setHorario = (trabajadores, automat) => {
+    const newsemana = cleanSemana();
+    let semana = setSemana(newsemana, trabajadores, automat);
+    return semana;
+};
+
 export const cleanSemana = () => {
     let semana = new Array(7);
     for (let i = 0; i < semana.length; i++) {
@@ -84,7 +82,9 @@ export const cleanSemana = () => {
     return semana;
 };
 
-const setSemana = (semana) => {
+const setSemana = (semana, trabajadores, automat) => {
+    const automatico = automat;
+    console.log(trabajadores);
     let dia = [
         "lunes",
         "martes",
@@ -162,12 +162,13 @@ const setSemana = (semana) => {
                             name = trab.name;
                             break;
                         }
-
-                        if (trab.yajornada) continue;
-                        if (trab.noche < 1) continue;
-                        if (trab.noche > puntos) {
-                            puntos = trab.noche;
-                            name = trab.name;
+                        if (automatico) {
+                            if (trab.yajornada) continue;
+                            if (trab.noche < 1) continue;
+                            if (trab.noche > puntos) {
+                                puntos = trab.noche;
+                                name = trab.name;
+                            }
                         }
                     }
                     for (const trab of trabajadores) {
@@ -194,20 +195,21 @@ const setSemana = (semana) => {
                             break;
                         }
 
-                        if (trab.yajornada) continue;
-                        if (trab.pista < 1) continue;
-                        if (trab.manana < 1) continue;
-                        if (!trab.fuetarde) {
-                            doblapuntos = trab.manana + trab.pista;
-                        } else {
-                            doblapuntos = 0;
-                        }
-                        if (doblapuntos > puntos) {
-                            puntos = doblapuntos;
-                            name = trab.name;
+                        if (automatico) {
+                            if (trab.yajornada) continue;
+                            if (trab.pista < 1) continue;
+                            if (trab.manana < 1) continue;
+                            if (!trab.fuetarde) {
+                                doblapuntos = trab.manana + trab.pista;
+                            } else {
+                                doblapuntos = 0;
+                            }
+                            if (doblapuntos > puntos) {
+                                puntos = doblapuntos;
+                                name = trab.name;
+                            }
                         }
                     }
-
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             if (trab.fuetarde) {
@@ -238,17 +240,19 @@ const setSemana = (semana) => {
                             break;
                         }
 
-                        if (trab.yajornada) continue;
-                        if (trab.tienda < 1) continue;
-                        if (trab.manana < 1) continue;
-                        if (!trab.fuetarde) {
-                            doblapuntos = trab.manana + trab.pista;
-                        } else {
-                            doblapuntos = 0;
-                        }
-                        if (doblapuntos > puntos) {
-                            puntos = doblapuntos;
-                            name = trab.name;
+                        if (automatico) {
+                            if (trab.yajornada) continue;
+                            if (trab.tienda < 1) continue;
+                            if (trab.manana < 1) continue;
+                            if (!trab.fuetarde) {
+                                doblapuntos = trab.manana + trab.pista;
+                            } else {
+                                doblapuntos = 0;
+                            }
+                            if (doblapuntos > puntos) {
+                                puntos = doblapuntos;
+                                name = trab.name;
+                            }
                         }
                     }
                     for (const trab of trabajadores) {
@@ -281,11 +285,13 @@ const setSemana = (semana) => {
                             break;
                         }
 
-                        if (trab.yajornada) continue;
-                        if (trab.pista < 1) continue;
-                        if (trab.tarde + trab.pista > puntos) {
-                            puntos = trab.tarde + trab.pista;
-                            name = trab.name;
+                        if (automatico) {
+                            if (trab.yajornada) continue;
+                            if (trab.pista < 1) continue;
+                            if (trab.tarde + trab.pista > puntos) {
+                                puntos = trab.tarde + trab.pista;
+                                name = trab.name;
+                            }
                         }
                     }
                     for (const trab of trabajadores) {
@@ -314,11 +320,13 @@ const setSemana = (semana) => {
                             break;
                         }
 
-                        if (trab.yajornada) continue;
-                        if (trab.tienda < 1) continue;
-                        if (trab.tarde + trab.tienda > puntos) {
-                            puntos = trab.tarde + trab.tienda;
-                            name = trab.name;
+                        if (automatico) {
+                            if (trab.yajornada) continue;
+                            if (trab.tienda < 1) continue;
+                            if (trab.tarde + trab.tienda > puntos) {
+                                puntos = trab.tarde + trab.tienda;
+                                name = trab.name;
+                            }
                         }
                     }
                     for (const trab of trabajadores) {

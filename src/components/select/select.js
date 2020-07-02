@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Select from "@material-ui/core/Select";
 import { withStyles, InputBase } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
+import { TrabajadoresContext } from "../view/HorarioScreen";
+import { types } from "../../reducers/types";
 
 const BootstrapInput = withStyles((theme) => ({
     input: {
@@ -30,31 +32,17 @@ const BootstrapInput = withStyles((theme) => ({
     },
 }))(InputBase);
 
-export const SelectTable = ({ myKey, setTrabas, value = "0", options }) => {
+export const SelectTable = ({ myKey, value, options }) => {
     const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
+    const { dispatch } = useContext(TrabajadoresContext);
 
     const handleChange = (e) => {
-        setTrabas((trab) => {
-            let newtrab = [...trab];
-            let old;
-            for (const t of newtrab) {
-                if (t.name === e.target.value) {
-                    old = t.semana.horario[myKey[1]].valor;
-                    t.semana.horario[myKey[1]].valor = puestos[myKey[0]];
-                    t.semana.horario[myKey[1]].forced = true;
-                }
-            }
-            for (const tt of newtrab) {
-                if (
-                    tt.semana.horario[myKey[1]].valor === puestos[myKey[0]] &&
-                    tt.name !== e.target.value
-                ) {
-                    tt.semana.horario[myKey[1]].valor = old;
-                    tt.semana.horario[myKey[1]].forced = false;
-                }
-            }
-
-            return newtrab;
+        dispatch({
+            type: types.setManual,
+            payload: {
+                keys: [myKey[1], myKey[0]],
+                value: e.target.value,
+            },
         });
     };
     return (

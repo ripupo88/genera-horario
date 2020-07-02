@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import DoneIcon from "@material-ui/icons/Done";
 import { TrabajadoresContext } from "../view/HorarioScreen";
+import SettingsIcon from "@material-ui/icons/Settings";
+import "./Chip.css";
 
 const useStyles = makeStyles((theme) => ({
     chip: {
@@ -38,12 +39,13 @@ export default function Chips() {
 
     return (
         <div className={classes.root}>
+            <SettingsIcon className="icono" color="primary" />
+
             {trabajadores.map(({ name }, i) => {
                 return (
                     <Chip
                         key={name}
                         className={classes.chip}
-                        avatar={<Avatar>{name[0]}</Avatar>}
                         label={name}
                         clickable
                         onClick={() => handleClick(i)}
