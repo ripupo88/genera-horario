@@ -6,4 +6,5 @@ export const types = {
     setManana: "parametro mañana",
     setTarde: "parametro  tarde",
     setNoche: "parametro Noche",
+    reset: "reiniciar todo",
 };

@@ -8,6 +8,7 @@ import Chips from "../chip/Chip";
 import SimpleCollapse from "../fade/Fade";
 import { trabajadoresReducer } from "../../reducers/trabajadoresReducer";
 import { FinalChanges } from "../FinalChanges/FinalChanges";
+import { Instrucciones } from "../temp/Instrucciones";
 
 export const TrabajadoresContext = createContext();
 
@@ -32,10 +33,10 @@ export const HorarioScreen = () => {
         trabajadores,
         init
     );
-    useEffect(() => {
-        console.log("asdad", trabajadoresObject);
-        let myset = setHorarioOrden(trabajadoresObject, automat);
 
+    useEffect(() => {
+        let myset = setHorarioOrden(trabajadoresObject, automat);
+        console.log("salta");
         if (!comprobacion(myset)) {
             myset = [...mydefault, myset[5], myset[6]];
             setDesabled(true);
@@ -68,7 +69,8 @@ export const HorarioScreen = () => {
                     <SimpleTable trabs={trabs} options={options} />
                     <Chips />
                     <SimpleCollapse />
-                    <FinalChanges />
+                    {/* <FinalChanges /> */}
+                    <Instrucciones />
                 </Container>
             </div>
         </TrabajadoresContext.Provider>

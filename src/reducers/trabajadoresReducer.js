@@ -51,6 +51,9 @@ export const trabajadoresReducer = (trab, action) => {
             newTrab = [...trab];
             newTrab[action.payload.index].noche = action.payload.value;
             return newTrab;
+        case types.reset:
+            newTrab = action.payload;
+            return newTrab;
 
         default:
             return trab;

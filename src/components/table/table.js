@@ -12,7 +12,9 @@ import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import "./table.css";
+import { trabajadores as mistrab } from "../../info/trabajadores";
 import { TrabajadoresContext } from "../view/HorarioScreen";
+import { types } from "../../reducers/types";
 
 const useStyles = makeStyles({
     table: {
@@ -23,12 +25,21 @@ const useStyles = makeStyles({
 
 export default function SimpleTable({ trabs, options }) {
     const classes = useStyles();
-    const { trabajadores, automat, setAutomat, desabled } = useContext(
-        TrabajadoresContext
-    );
+    const {
+        trabajadores,
+        automat,
+        setAutomat,
+        desabled,
+        dispatch,
+    } = useContext(TrabajadoresContext);
 
-    const cabecera = ["?", "L", "M", "X", "J", "V", "S", "D"];
-    const col1 = ["Mt", "M", "Tt", "T", "N", "L", "L"];
+    const reiniciaTodo = () => {
+        dispatch({ type: types.reset, payload: mistrab });
+        localStorage.removeItem("trabajadoresStorage");
+    };
+
+    const cabecera = ["", "L", "M", "X", "J", "V", "S", "D"];
+    const col1 = ["M", "Mt", "T", "Tt", "N", "L", "L"];
 
     return (
         <>
@@ -73,7 +84,12 @@ export default function SimpleTable({ trabs, options }) {
                                                 cel.esRenganche
                                                     ? {
                                                           backgroundColor:
-                                                              "#64BBFA",
+                                                              "#E88B66",
+                                                      }
+                                                    : i > 1 && i < 4
+                                                    ? {
+                                                          backgroundColor:
+                                                              "#e7e7e7",
                                                       }
                                                     : i > 4
                                                     ? {
@@ -104,9 +120,17 @@ export default function SimpleTable({ trabs, options }) {
                 </Table>
             </TableContainer>
             <div style={{ marginTop: "5px", float: "left" }}>
-                <Button size="small" color="primary" className={classes.margin}>
-                    Volver a empezar
-                </Button>
+                <form>
+                    <Button
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={reiniciaTodo}
+                    >
+                        Volver a empezar
+                    </Button>
+                </form>
             </div>
             <div>
                 <FormControlLabel

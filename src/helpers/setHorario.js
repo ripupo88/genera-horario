@@ -2,15 +2,6 @@ const setHorarioOrden = (trabajadores, automat) => {
     let orden = setHorario(trabajadores, automat);
     let newOrden = [
         [
-            orden[0][4],
-            orden[1][4],
-            orden[2][4],
-            orden[3][4],
-            orden[4][4],
-            orden[5][4],
-            orden[6][4],
-        ],
-        [
             orden[0][3],
             orden[1][3],
             orden[2][3],
@@ -20,13 +11,13 @@ const setHorarioOrden = (trabajadores, automat) => {
             orden[6][3],
         ],
         [
-            orden[0][6],
-            orden[1][6],
-            orden[2][6],
-            orden[3][6],
-            orden[4][6],
-            orden[5][6],
-            orden[6][6],
+            orden[0][4],
+            orden[1][4],
+            orden[2][4],
+            orden[3][4],
+            orden[4][4],
+            orden[5][4],
+            orden[6][4],
         ],
         [
             orden[0][5],
@@ -36,6 +27,15 @@ const setHorarioOrden = (trabajadores, automat) => {
             orden[4][5],
             orden[5][5],
             orden[6][5],
+        ],
+        [
+            orden[0][6],
+            orden[1][6],
+            orden[2][6],
+            orden[3][6],
+            orden[4][6],
+            orden[5][6],
+            orden[6][6],
         ],
         [
             orden[0][2],
@@ -245,7 +245,7 @@ const setSemana = (semana, trabajadores, automat) => {
                             if (trab.tienda < 1) continue;
                             if (trab.manana < 1) continue;
                             if (!trab.fuetarde) {
-                                doblapuntos = trab.manana + trab.pista;
+                                doblapuntos = trab.manana + trab.tienda;
                             } else {
                                 doblapuntos = 0;
                             }
