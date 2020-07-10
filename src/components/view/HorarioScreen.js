@@ -65,13 +65,11 @@ export const HorarioScreen = () => {
             }}
         >
             <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-                <Container maxWidth="md">
-                    <SimpleTable trabs={trabs} options={options} />
-                    <Chips />
-                    <SimpleCollapse />
-                    {/* <FinalChanges /> */}
-                    <Instrucciones />
-                </Container>
+                <SimpleTable trabs={trabs} options={options} />
+                <Chips />
+                <SimpleCollapse />
+                {/* <FinalChanges /> */}
+                <Instrucciones />
             </div>
         </TrabajadoresContext.Provider>
     );

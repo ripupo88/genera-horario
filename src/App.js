@@ -1,14 +1,21 @@
 import React from "react";
 import "./App.css";
-import { HorarioScreen } from "./components/view/HorarioScreen";
-import { NavBar } from "./components/navBar/NavBar";
+import Admin from "./components/layout/Admin";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LoginScreem from "./components/layout/Login";
 
 function App() {
     return (
-        <div>
-            <NavBar />
-            <HorarioScreen />
-        </div>
+        <Router>
+            <Switch>
+                <Route exact path="/login">
+                    <LoginScreem />
+                </Route>
+                <Route path="/">
+                    <Admin />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
