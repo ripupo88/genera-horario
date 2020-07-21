@@ -104,9 +104,13 @@ const setSemana = (semana, trabajadores, automat) => {
         for (let x = 0; x < semana[i].length; x++) {
             puntos = -1;
             let esRenganche = false;
+            let diasLibrados;
             switch (x) {
                 case 0:
                     for (const trab of trabajadores) {
+                        diasLibrados = trab.semana.horario.filter(
+                            (a) => a.valor === "L"
+                        );
                         if (trab.yajornada) continue;
                         if (
                             trab.semana.horario[i].valor === "L" &&
@@ -115,12 +119,19 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
+                        if (diasLibrados.length > 1) continue;
+                        if (trab.fuelibre) {
+                            name = trab.name;
+                            break;
+                        }
+                        name = trab.name;
                     }
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
+                            trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L";
                             break;
                         }
@@ -131,6 +142,9 @@ const setSemana = (semana, trabajadores, automat) => {
 
                 case 1:
                     for (const trab of trabajadores) {
+                        diasLibrados = trab.semana.horario.filter(
+                            (a) => a.valor === "L"
+                        );
                         if (trab.yajornada) continue;
                         if (
                             trab.semana.horario[i].valor === "L1" &&
@@ -139,12 +153,19 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
+                        if (diasLibrados.length > 1) continue;
+                        if (trab.fuelibre) {
+                            name = trab.name;
+                            break;
+                        }
+                        name = trab.name;
                     }
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
+                            trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L1";
                             break;
                         }
@@ -177,6 +198,9 @@ const setSemana = (semana, trabajadores, automat) => {
                             trab.yajornada = true;
                             trab.fuenoche = true;
                             trab.fuetarde = false;
+                            trab.fuelibre = false;
+                            trab.fuelibre = false;
+                            trab.fuelibre = false;
                             trab.semana.horario[i].valor = "N";
                         }
                     }
@@ -187,14 +211,14 @@ const setSemana = (semana, trabajadores, automat) => {
                 case 3:
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
-                        if (
-                            trab.semana.horario[i].valor === "M" &&
-                            trab.semana.horario[i].forced
-                        ) {
-                            trab.semana.horario[i].valor = "M";
-                            name = trab.name;
-                            break;
-                        }
+                        // if (
+                        //     trab.semana.horario[i].valor === "M" &&
+                        //     trab.semana.horario[i].forced
+                        // ) {
+                        //     trab.semana.horario[i].valor = "M";
+                        //     name = trab.name;
+                        //     break;
+                        // }
 
                         if (automatico) {
                             if (trab.yajornada) continue;
@@ -224,10 +248,19 @@ const setSemana = (semana, trabajadores, automat) => {
                         return -1;
                     });
                     if (automatico) {
-                        console.log("mañana", listaHorario);
+                        while (
+                            listaHorario[0].pista + listaHorario[1].pista ===
+                            0
+                        ) {
+                            console.log(listaHorario);
+                            listaHorario.splice(1, 1);
+                            console.log(listaHorario);
+                        }
                         if (
-                            listaHorario[0].pista + listaHorario[1].tienda >
-                            listaHorario[1].pista + listaHorario[0].tienda
+                            (listaHorario[0].pista + listaHorario[1].tienda) *
+                                Math.ceil(listaHorario[0].pista / 10) >
+                            (listaHorario[1].pista + listaHorario[0].tienda) *
+                                Math.ceil(listaHorario[1].pista / 10)
                         ) {
                             name = listaHorario[0].name;
                             OtroName = listaHorario[1].name;
@@ -247,6 +280,8 @@ const setSemana = (semana, trabajadores, automat) => {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
+                            trab.fuelibre = false;
+                            trab.fuelibre = false;
                             trab.semana.horario[i].valor = "M";
                         }
                     }
@@ -270,6 +305,7 @@ const setSemana = (semana, trabajadores, automat) => {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = false;
+                            trab.fuelibre = false;
                             trab.semana.horario[i].valor = "Mt";
                         }
                     }
@@ -281,14 +317,14 @@ const setSemana = (semana, trabajadores, automat) => {
                 case 5:
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
-                        if (
-                            trab.semana.horario[i].valor === "T" &&
-                            trab.semana.horario[i].forced
-                        ) {
-                            trab.semana.horario[i].valor = "T";
-                            name = trab.name;
-                            break;
-                        }
+                        // if (
+                        //     trab.semana.horario[i].valor === "T" &&
+                        //     trab.semana.horario[i].forced
+                        // ) {
+                        //     trab.semana.horario[i].valor = "T";
+                        //     name = trab.name;
+                        //     break;
+                        // }
 
                         if (automatico) {
                             if (trab.yajornada) continue;
@@ -331,6 +367,8 @@ const setSemana = (semana, trabajadores, automat) => {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = true;
+                            trab.fuelibre = false;
+                            trab.fuelibre = false;
                             trab.semana.horario[i].valor = "T";
                         }
                     }
@@ -348,6 +386,7 @@ const setSemana = (semana, trabajadores, automat) => {
                             trab.yajornada = true;
                             trab.fuenoche = false;
                             trab.fuetarde = true;
+                            trab.fuelibre = false;
                             trab.semana.horario[i].valor = "Tt";
                         }
                     }

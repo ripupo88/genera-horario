@@ -9,6 +9,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -32,6 +33,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -55,6 +57,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -78,6 +81,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -101,6 +105,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -125,6 +130,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [
@@ -148,6 +154,7 @@ export const trabajadores = [
         yajornada: false,
         fuetarde: false,
         fuenoche: false,
+        fuelibre: false,
         semana: {
             fecha: "",
             horario: [

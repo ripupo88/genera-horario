@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useReducer } from "react";
 import setHorarioOrden from "../../helpers/setHorario";
 import { trabajadores } from "../../info/trabajadores";
 import SimpleTable from "../table/table";
-import { Container } from "@material-ui/core";
+import { Container, Snackbar } from "@material-ui/core";
 import { mydefault } from "./default";
 import Chips from "../chip/Chip";
 import SimpleCollapse from "../fade/Fade";
@@ -26,7 +26,14 @@ export const HorarioScreen = () => {
     const [desabled, setDesabled] = useState(true);
     const [automat, setAutomat] = useState(false);
     const [trabs, setTrabas] = useState(mydefault);
+
     const options = trabajadores.map((item) => item.name);
+
+    const [alert, setAlert] = React.useState(false);
+
+    const handleClose = () => {
+        setAlert(false);
+    };
 
     const [trabajadoresObject, dispatch] = useReducer(
         trabajadoresReducer,
@@ -35,8 +42,14 @@ export const HorarioScreen = () => {
     );
 
     useEffect(() => {
-        let myset = setHorarioOrden(trabajadoresObject, automat);
-        console.log("salta");
+        let myset;
+        try {
+            myset = setHorarioOrden(trabajadoresObject, automat);
+        } catch {
+            myset = setHorarioOrden(trabajadoresObject);
+            setAlert(true);
+        }
+
         if (!comprobacion(myset)) {
             myset = [...mydefault, myset[5], myset[6]];
             setDesabled(true);
@@ -66,6 +79,15 @@ export const HorarioScreen = () => {
         >
             <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
                 <SimpleTable trabs={trabs} options={options} />
+                <Snackbar
+                    autoHideDuration={10000}
+                    severity="error"
+                    anchorOrigin={{ vertical: "center", horizontal: "center" }}
+                    open={alert}
+                    onClose={handleClose}
+                    message="Parametros muy restrictivos, no se puede generar un horario"
+                    key={9898}
+                />
                 <Chips />
                 <SimpleCollapse />
                 {/* <FinalChanges /> */}
