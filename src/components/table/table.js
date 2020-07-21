@@ -33,6 +33,12 @@ export default function SimpleTable({ trabs, options }) {
         dispatch,
     } = useContext(TrabajadoresContext);
 
+    const handleGenerar = (e) => {
+        console.log("clicked");
+        e.preventDefault();
+        setAutomat(!automat);
+    };
+
     const reiniciaTodo = () => {
         dispatch({ type: types.reset, payload: mistrab });
         localStorage.removeItem("trabajadoresStorage");
@@ -132,8 +138,19 @@ export default function SimpleTable({ trabs, options }) {
                     </Button>
                 </form>
             </div>
-            <div>
-                <FormControlLabel
+            <div style={{ marginTop: "5px", float: "right" }}>
+                <form>
+                    <Button
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={handleGenerar}
+                    >
+                        Generar
+                    </Button>
+                </form>
+                {/* <FormControlLabel
                     className="cheked"
                     style={{ color: "#5164C2" }}
                     disabled={desabled}
@@ -148,7 +165,7 @@ export default function SimpleTable({ trabs, options }) {
                         />
                     }
                     label="Automatico"
-                />
+                /> */}
             </div>
         </>
     );

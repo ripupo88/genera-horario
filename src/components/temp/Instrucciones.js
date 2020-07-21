@@ -1,8 +1,9 @@
 import React from "react";
+import "./INstrucciones.css";
 
 export const Instrucciones = () => {
     return (
-        <div>
+        <div className="pa">
             <h2>Instrucciónes de uso</h2>
             <p>
                 EL asistente para generar el horario, cómo su nombre lo indica
