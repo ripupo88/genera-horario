@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Select from "@material-ui/core/Select";
 import { withStyles, InputBase } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import { TrabajadoresContext } from "../view/HorarioScreen";
+import { myContext } from "../view/HorarioScreen";
 import { types } from "../../reducers/types";
 
 const BootstrapInput = withStyles((theme) => ({
@@ -34,7 +34,7 @@ const BootstrapInput = withStyles((theme) => ({
 
 export const SelectTable = ({ myKey, value, options }) => {
     const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
-    const { dispatch } = useContext(TrabajadoresContext);
+    const { dispatch } = useContext(myContext);
 
     const handleChange = (e) => {
         dispatch({

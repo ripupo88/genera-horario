@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import DoneIcon from "@material-ui/icons/Done";
-import { TrabajadoresContext } from "../view/HorarioScreen";
+import { myContext } from "../view/HorarioScreen";
 import SettingsIcon from "@material-ui/icons/Settings";
 import "./Chip.css";
+import { types } from "../../reducers/types";
 
 const useStyles = makeStyles((theme) => ({
     chip: {
@@ -23,17 +24,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Chips() {
+    const { state, dispatch } = useContext(myContext);
+    const { trabajadores, conf } = state;
+    console.log(conf);
+    const { index } = conf;
+    return <Chips1 props={{ trabajadores, index, dispatch }} />;
+}
+
+function Chips1({ props }) {
+    const { trabajadores, index, dispatch } = props;
     const classes = useStyles();
-    const { trabajadores, setChecked, setIndex, index } = useContext(
-        TrabajadoresContext
-    );
 
     const handleClick = (indexLocal) => {
         if (index === indexLocal) {
-            setChecked((chec) => !chec);
+            dispatch({ type: types.toggleCheck });
         } else {
-            setIndex(indexLocal);
-            setChecked(true);
+            dispatch({ type: types.setIndex, payload: indexLocal });
+            dispatch({ type: types.checkedTrue });
         }
     };
 

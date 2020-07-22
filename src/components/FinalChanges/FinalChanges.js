@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { TrabajadoresContext } from "../view/HorarioScreen";
+import { myContext } from "../view/HorarioScreen";
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -70,7 +70,7 @@ export const FinalChanges = () => {
         "Sabado",
         "Domingo",
     ];
-    const { trabajadores, desabled } = useContext(TrabajadoresContext);
+    const { trabajadores, desabled } = useContext(myContext);
     return (
         !desabled &&
         trabajadores.map((trabajador) => {

@@ -2,81 +2,65 @@ import React, { useState, useEffect, createContext, useReducer } from "react";
 import setHorarioOrden from "../../helpers/setHorario";
 import { trabajadores } from "../../info/trabajadores";
 import SimpleTable from "../table/table";
-import { Container, Snackbar } from "@material-ui/core";
 import { mydefault } from "./default";
 import Chips from "../chip/Chip";
 import SimpleCollapse from "../fade/Fade";
 import { trabajadoresReducer } from "../../reducers/trabajadoresReducer";
 import { FinalChanges } from "../FinalChanges/FinalChanges";
 import { Instrucciones } from "../temp/Instrucciones";
+import { Snackbar } from "@material-ui/core";
+import { store } from "../../store/store";
+import { generaHorario } from "../../actions/generaSemana";
 
-export const TrabajadoresContext = createContext();
+export const myContext = createContext();
 
-const init = () => {
-    if (localStorage.getItem("trabajadoresStorage") !== null) {
-        return JSON.parse(localStorage.getItem("trabajadoresStorage"));
-    } else {
-        return trabajadores;
-    }
-};
+// const init = () => {
+//     if (localStorage.getItem("trabajadoresStorage") !== null) {
+//         return JSON.parse(localStorage.getItem("trabajadoresStorage"));
+//     } else {
+//         return trabajadores;
+//     }
+// };
 
 export const HorarioScreen = () => {
-    const [index, setIndex] = useState(0);
-    const [checked, setChecked] = useState(false);
+    const [state, dispatch] = useReducer(
+        trabajadoresReducer,
+        store
+        // init
+    );
+
     const [desabled, setDesabled] = useState(true);
-    const [automat, setAutomat] = useState(false);
+    const [alert, setAlert] = React.useState(false);
+
     const [trabs, setTrabas] = useState(mydefault);
 
     const options = trabajadores.map((item) => item.name);
-
-    const [alert, setAlert] = React.useState(false);
 
     const handleClose = () => {
         setAlert(false);
     };
 
-    const [trabajadoresObject, dispatch] = useReducer(
-        trabajadoresReducer,
-        trabajadores,
-        init
-    );
-
     useEffect(() => {
-        let myset;
-        try {
-            myset = setHorarioOrden(trabajadoresObject, automat);
-        } catch {
-            myset = setHorarioOrden(trabajadoresObject, true);
-            //setAlert(true);
-        }
-
-        if (!comprobacion(myset)) {
-            //myset = [...mydefault, myset[5], myset[6]];
-            setDesabled(true);
-        } else {
-            setDesabled(false);
-        }
-        localStorage.setItem(
-            "trabajadoresStorage",
-            JSON.stringify(trabajadoresObject)
-        );
-        setTrabas(myset);
-    }, [trabajadoresObject, automat]);
+        // let semanaGenerada;
+        // try {
+        //     semanaGenerada = setHorarioOrden(state, automat);
+        // } catch {
+        //     semanaGenerada = setHorarioOrden(state, true);
+        //     //setAlert(true);
+        // }
+        // if (!comprobacion(semanaGenerada)) {
+        //     //myset = [...mydefault, myset[5], myset[6]];
+        //     setDesabled(true);
+        // } else {
+        //     setDesabled(false);
+        // }
+        //localStorage.setItem("trabajadoresStorage", JSON.stringify(state));
+        //generaHorario(store.trabajadores).then(dispatch);
+        // setTrabas(semanaGenerada);
+    }, []);
 
     return (
-        <TrabajadoresContext.Provider
-            value={{
-                desabled,
-                automat,
-                setAutomat,
-                trabajadores: trabajadoresObject,
-                dispatch,
-                checked,
-                setChecked,
-                index,
-                setIndex,
-            }}
-        >
+        <myContext.Provider value={{ state, dispatch }}>
             <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
                 <SimpleTable trabs={trabs} options={options} />
                 <Snackbar
@@ -93,7 +77,7 @@ export const HorarioScreen = () => {
                 {/* <FinalChanges /> */}
                 <Instrucciones />
             </div>
-        </TrabajadoresContext.Provider>
+        </myContext.Provider>
     );
 };
 
@@ -102,14 +86,16 @@ const comprobacion = (test) => {
     test[5].map((item) => {
         if (item.name[0] === "") {
             sale = false;
-            return;
+            return "";
         }
+        return "";
     });
     test[6].map((item) => {
         if (item.name[0] === "") {
             sale = false;
-            return;
+            return "";
         }
+        return "";
     });
     return sale;
 };

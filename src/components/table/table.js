@@ -8,13 +8,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { SelectTable } from "../select/select";
-import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import "./table.css";
-import { trabajadores as mistrab } from "../../info/trabajadores";
-import { TrabajadoresContext } from "../view/HorarioScreen";
+import { myContext } from "../view/HorarioScreen";
 import { types } from "../../reducers/types";
+import { Button } from "@material-ui/core";
+import { generaHorario } from "../../actions/generaSemana";
+import { store } from "../../store/store";
 
 const useStyles = makeStyles({
     table: {
@@ -23,25 +22,28 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleTable({ trabs, options }) {
+export default function SimpleTable() {
+    const { state, dispatch } = useContext(myContext);
+
+    const { trabajadores, semanaDefault } = state;
+    return <SimpleTable1 props={{ semanaDefault, trabajadores, dispatch }} />;
+}
+
+function SimpleTable1({ props }) {
+    const { dispatch, trabajadores, semanaDefault } = props;
+    console.log(trabajadores, semanaDefault);
+    const options = trabajadores.map((item) => item.name);
+
     const classes = useStyles();
-    const {
-        trabajadores,
-        automat,
-        setAutomat,
-        desabled,
-        dispatch,
-    } = useContext(TrabajadoresContext);
 
     const handleGenerar = (e) => {
-        console.log("clicked");
         e.preventDefault();
-        setAutomat(!automat);
+        generaHorario(store.trabajadores).then(dispatch);
     };
 
     const reiniciaTodo = () => {
-        dispatch({ type: types.reset, payload: mistrab });
-        localStorage.removeItem("trabajadoresStorage");
+        dispatch({ type: types.reset, payload: store });
+        //localStorage.removeItem("trabajadoresStorage");
     };
 
     const cabecera = ["", "L", "M", "X", "J", "V", "S", "D"];
@@ -72,7 +74,7 @@ export default function SimpleTable({ trabs, options }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {trabs.map((row, i) => (
+                        {semanaDefault.map((row, i) => (
                             <TableRow key={i}>
                                 <TableCell
                                     style={{ backgroundColor: "#5982DE" }}

@@ -219,120 +219,92 @@ export const mydefault = [
             puesto: "tienda",
         },
     ],
-    // [
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'lunes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'martes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'miercoles',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'jueves',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'viernes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'sabado',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'domingo',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   }
-    // ],
-    // [
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'lunes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'martes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'miercoles',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'jueves',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'viernes',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'sabado',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   },
-    //   {
-    //     name: [
-    //       ''
-    //     ],
-    //     dia: 'domingo',
-    //     hora: 'libre',
-    //     puesto: ''
-    //   }
-    // ]
+    [
+        {
+            name: [""],
+            dia: "lunes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "martes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "miercoles",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "jueves",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "viernes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "sabado",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "domingo",
+            hora: "libre",
+            puesto: "",
+        },
+    ],
+    [
+        {
+            name: [""],
+            dia: "lunes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "martes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "miercoles",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "jueves",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "viernes",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "sabado",
+            hora: "libre",
+            puesto: "",
+        },
+        {
+            name: [""],
+            dia: "domingo",
+            hora: "libre",
+            puesto: "",
+        },
+    ],
 ];

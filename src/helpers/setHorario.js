@@ -126,10 +126,10 @@ const setSemana = (semana, trabajadores, automat) => {
                         //     break;
                         // }
                         if (diasLibrados.length >= 2) continue;
-                        if (diasLibrados.length < 2 && trab.fuenoche) {
-                            name = trab.name;
-                            break;
-                        }
+                        // if (diasLibrados.length < 2 && trab.fuenoche) {
+                        //     name = trab.name;
+                        //     break;
+                        // }
                         if (diasLibrados.length < 1 && i === 5) {
                             name = trab.name;
                             break;
@@ -147,10 +147,6 @@ const setSemana = (semana, trabajadores, automat) => {
                                     Math.random() * ListaLibrar.length + 1
                                 ) - 1
                             ];
-                        console.log(
-                            Math.ceil(Math.random() * ListaLibrar.length + 1) -
-                                1
-                        );
                     }
                     diasLibrados = [];
                     for (const trab of trabajadores) {
@@ -186,10 +182,10 @@ const setSemana = (semana, trabajadores, automat) => {
                         //     break;
                         // }
                         if (diasLibrados.length >= 2) continue;
-                        if (diasLibrados.length <= 2 && trab.fuenoche) {
-                            name = trab.name;
-                            break;
-                        }
+                        // if (diasLibrados.length <= 2 && trab.fuenoche) {
+                        //     name = trab.name;
+                        //     break;
+                        // }
                         if (diasLibrados.length < 1 && i === 5) {
                             name = trab.name;
                             break;
@@ -289,7 +285,6 @@ const setSemana = (semana, trabajadores, automat) => {
                         return -1;
                     });
                     if (automatico) {
-                        console.log(listaHorario);
                         while (
                             listaHorario[0].pista + listaHorario[1].pista ===
                             0
@@ -388,15 +383,21 @@ const setSemana = (semana, trabajadores, automat) => {
                     });
 
                     if (automatico) {
-                        if (
-                            listaHorario[0].pista + listaHorario[1].tienda >
-                            listaHorario[1].pista + listaHorario[0].tienda
-                        ) {
-                            name = listaHorario[0].name;
-                            OtroName = listaHorario[1].name;
-                        } else {
-                            name = listaHorario[1].name;
-                            OtroName = listaHorario[0].name;
+                        try {
+                            if (
+                                listaHorario[0].pista + listaHorario[1].tienda >
+                                listaHorario[1].pista + listaHorario[0].tienda
+                            ) {
+                                name = listaHorario[0].name;
+                                OtroName = listaHorario[1].name;
+                            } else {
+                                name = listaHorario[1].name;
+                                OtroName = listaHorario[0].name;
+                            }
+                        } catch (error) {
+                            console.log(error);
+                            name = "error";
+                            OtroName = "error";
                         }
                     }
                     listaHorario = [];
@@ -447,6 +448,7 @@ const setSemana = (semana, trabajadores, automat) => {
             trab.yajornada = false;
         }
     }
+    console.log("Semana");
     return semana;
 };
 

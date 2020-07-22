@@ -1,15 +1,16 @@
 import { types } from "./types";
 
-export const trabajadoresReducer = (trab, action) => {
+export const trabajadoresReducer = (state, action) => {
     const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
     let newTrab;
+
     switch (action.type) {
         case types.generaHorario:
-            // Aqui la logica
-            return trab;
+            return { ...state, semanaDefault: action.payload };
+
         case types.setManual:
             //logica aqui
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             let value = action.payload.value;
             let myKey = action.payload.keys;
             let old;
@@ -29,33 +30,50 @@ export const trabajadoresReducer = (trab, action) => {
                     //tt.semana.horario[myKey[1]].forced = false;
                 }
             }
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
+        case types.toggleCheck:
+            return {
+                ...state,
+                conf: { ...state.conf, checked: !state.conf.checked },
+            };
+
+        case types.checkedTrue:
+            return { ...state, conf: { ...state.conf, checked: true } };
+
+        case types.setIndex:
+            return { ...state, conf: { ...state.conf, index: action.payload } };
 
         case types.setTienda:
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             newTrab[action.payload.index].tienda = action.payload.value;
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
         case types.setPista:
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             newTrab[action.payload.index].pista = action.payload.value;
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
         case types.setManana:
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             newTrab[action.payload.index].manana = action.payload.value;
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
         case types.setTarde:
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             newTrab[action.payload.index].tarde = action.payload.value;
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
         case types.setNoche:
-            newTrab = [...trab];
+            newTrab = [...state.trabajadores];
             newTrab[action.payload.index].noche = action.payload.value;
-            return newTrab;
+            return { ...state, trabajadores: newTrab };
+
         case types.reset:
             newTrab = action.payload;
-            return newTrab;
+            return { ...newTrab };
 
         default:
-            return trab;
+            return state;
     }
 };

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Collapse from "@material-ui/core/Collapse";
 import { TextField, Typography } from "@material-ui/core";
-import { TrabajadoresContext } from "../view/HorarioScreen";
+import { myContext } from "../view/HorarioScreen";
 import { types } from "../../reducers/types";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +19,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleCollapse() {
-    const classes = useStyles();
-    const { trabajadores, dispatch, checked, index } = useContext(
-        TrabajadoresContext
+    const { state, dispatch } = useContext(myContext);
+    const { trabajadores, conf } = state;
+    const { checked, index } = conf;
+
+    return (
+        <SimpleCollapse1 props={{ dispatch, trabajadores, checked, index }} />
     );
+}
+
+function SimpleCollapse1({ props }) {
+    const { trabajadores, dispatch, checked, index } = props;
+    const classes = useStyles();
 
     let { name, tienda, pista, manana, tarde, noche } = trabajadores[index];
 
