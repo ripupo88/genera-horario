@@ -100,17 +100,19 @@ const setSemana = (semana, trabajadores, automat) => {
     let name = "";
     let OtroName = "";
     let listaHorario = [];
+    let ListaLibrar = [];
     for (let i = 0; i < semana.length; i++) {
         for (let x = 0; x < semana[i].length; x++) {
             puntos = -1;
             let esRenganche = false;
-            let diasLibrados;
+            let diasLibrados = [];
             switch (x) {
                 case 0:
                     for (const trab of trabajadores) {
                         diasLibrados = trab.semana.horario.filter(
-                            (a) => a.valor === "L"
+                            (a) => a.valor === "L" || a.valor === "L1"
                         );
+
                         if (trab.yajornada) continue;
                         if (
                             trab.semana.horario[i].valor === "L" &&
@@ -119,13 +121,38 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
-                        if (diasLibrados.length > 1) continue;
+                        // if (trab.semana.horario[i].valor === "L") {
+                        //     name = trab.name;
+                        //     break;
+                        // }
+                        if (diasLibrados.length >= 2) continue;
+                        if (diasLibrados.length < 2 && trab.fuenoche) {
+                            name = trab.name;
+                            break;
+                        }
+                        if (diasLibrados.length < 1 && i === 5) {
+                            name = trab.name;
+                            break;
+                        }
                         if (trab.fuelibre) {
                             name = trab.name;
                             break;
                         }
-                        name = trab.name;
+                        ListaLibrar.unshift(trab.name);
                     }
+                    if (ListaLibrar.length > 0) {
+                        name =
+                            ListaLibrar[
+                                Math.ceil(
+                                    Math.random() * ListaLibrar.length + 1
+                                ) - 1
+                            ];
+                        console.log(
+                            Math.ceil(Math.random() * ListaLibrar.length + 1) -
+                                1
+                        );
+                    }
+                    diasLibrados = [];
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             trab.yajornada = true;
@@ -143,8 +170,9 @@ const setSemana = (semana, trabajadores, automat) => {
                 case 1:
                     for (const trab of trabajadores) {
                         diasLibrados = trab.semana.horario.filter(
-                            (a) => a.valor === "L"
+                            (a) => a.valor === "L" || a.valor === "L1"
                         );
+
                         if (trab.yajornada) continue;
                         if (
                             trab.semana.horario[i].valor === "L1" &&
@@ -153,13 +181,26 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
-                        if (diasLibrados.length > 1) continue;
+                        // if (trab.semana.horario[i].valor === "L1") {
+                        //     name = trab.name;
+                        //     break;
+                        // }
+                        if (diasLibrados.length >= 2) continue;
+                        if (diasLibrados.length <= 2 && trab.fuenoche) {
+                            name = trab.name;
+                            break;
+                        }
+                        if (diasLibrados.length < 1 && i === 5) {
+                            name = trab.name;
+                            break;
+                        }
                         if (trab.fuelibre) {
                             name = trab.name;
                             break;
                         }
                         name = trab.name;
                     }
+                    diasLibrados = [];
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             trab.yajornada = true;
@@ -248,13 +289,12 @@ const setSemana = (semana, trabajadores, automat) => {
                         return -1;
                     });
                     if (automatico) {
+                        console.log(listaHorario);
                         while (
                             listaHorario[0].pista + listaHorario[1].pista ===
                             0
                         ) {
-                            console.log(listaHorario);
                             listaHorario.splice(1, 1);
-                            console.log(listaHorario);
                         }
                         if (
                             (listaHorario[0].pista + listaHorario[1].tienda) *
@@ -348,7 +388,6 @@ const setSemana = (semana, trabajadores, automat) => {
                     });
 
                     if (automatico) {
-                        console.log("tarde", listaHorario);
                         if (
                             listaHorario[0].pista + listaHorario[1].tienda >
                             listaHorario[1].pista + listaHorario[0].tienda

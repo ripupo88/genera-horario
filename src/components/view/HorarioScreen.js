@@ -46,12 +46,12 @@ export const HorarioScreen = () => {
         try {
             myset = setHorarioOrden(trabajadoresObject, automat);
         } catch {
-            myset = setHorarioOrden(trabajadoresObject);
-            setAlert(true);
+            myset = setHorarioOrden(trabajadoresObject, true);
+            //setAlert(true);
         }
 
         if (!comprobacion(myset)) {
-            myset = [...mydefault, myset[5], myset[6]];
+            //myset = [...mydefault, myset[5], myset[6]];
             setDesabled(true);
         } else {
             setDesabled(false);

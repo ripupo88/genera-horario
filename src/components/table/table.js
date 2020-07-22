@@ -126,30 +126,27 @@ export default function SimpleTable({ trabs, options }) {
                 </Table>
             </TableContainer>
             <div style={{ marginTop: "5px", float: "left" }}>
-                <form>
-                    <Button
-                        type="submit"
-                        size="small"
-                        color="primary"
-                        className={classes.margin}
-                        onClick={reiniciaTodo}
-                    >
-                        Volver a empezar
-                    </Button>
-                </form>
+                <Button
+                    type="submit"
+                    size="small"
+                    color="primary"
+                    className={classes.margin}
+                    onClick={reiniciaTodo}
+                >
+                    Volver a empezar
+                </Button>
             </div>
             <div style={{ marginTop: "5px", float: "right" }}>
-                <form>
-                    <Button
-                        type="submit"
-                        size="small"
-                        color="primary"
-                        className={classes.margin}
-                        onClick={handleGenerar}
-                    >
-                        Generar
-                    </Button>
-                </form>
+                <Button
+                    type="submit"
+                    size="small"
+                    color="primary"
+                    className={classes.margin}
+                    onClick={handleGenerar}
+                >
+                    Generar
+                </Button>
+
                 {/* <FormControlLabel
                     className="cheked"
                     style={{ color: "#5164C2" }}
