@@ -33,14 +33,19 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 export const SelectTable = ({ myKey, value, options }) => {
-    const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
     const { dispatch } = useContext(myContext);
+    return <SelectTable1 props={{ dispatch, myKey, value, options }} />;
+};
+export const SelectTable1 = React.memo(({ props }) => {
+    const { dispatch, myKey, value, options } = props;
+    //const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
 
     const handleChange = (e) => {
+        console.log(e);
         dispatch({
             type: types.setManual,
             payload: {
-                keys: [myKey[1], myKey[0]],
+                keys: [myKey[0], myKey[1]],
                 value: e.target.value,
             },
         });
@@ -58,6 +63,7 @@ export const SelectTable = ({ myKey, value, options }) => {
                 <em>None</em>
             </MenuItem>
             {options.map((item, i) => {
+                if (item === undefined) console.log(item);
                 return (
                     <MenuItem key={i} value={item}>
                         {item}
@@ -66,4 +72,4 @@ export const SelectTable = ({ myKey, value, options }) => {
             })}
         </Select>
     );
-};
+});

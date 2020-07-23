@@ -31,7 +31,7 @@ export default function SimpleTable() {
 
 function SimpleTable1({ props }) {
     const { dispatch, trabajadores, semanaDefault } = props;
-    console.log(trabajadores, semanaDefault);
+
     const options = trabajadores.map((item) => item.name);
 
     const classes = useStyles();

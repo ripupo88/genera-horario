@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Chips() {
     const { state, dispatch } = useContext(myContext);
     const { trabajadores, conf } = state;
-    console.log(conf);
     const { index } = conf;
     return <Chips1 props={{ trabajadores, index, dispatch }} />;
 }

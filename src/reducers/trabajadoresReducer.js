@@ -21,15 +21,16 @@ export const trabajadoresReducer = (state, action) => {
                     t.semana.horario[myKey[0]].forced = true;
                 }
             }
-            for (const tt of newTrab) {
-                if (
-                    tt.semana.horario[myKey[0]].valor === puestos[myKey[1]] &&
-                    tt.name !== value
-                ) {
-                    tt.semana.horario[myKey[0]].valor = old;
-                    //tt.semana.horario[myKey[1]].forced = false;
-                }
-            }
+            console.log(newTrab);
+            // for (const tt of newTrab) {
+            //     if (
+            //         tt.semana.horario[myKey[0]].valor === puestos[myKey[1]] &&
+            //         tt.name !== value
+            //     ) {
+            //         tt.semana.horario[myKey[0]].valor = old;
+            //         //tt.semana.horario[myKey[1]].forced = false;
+            //     }
+            // }
             return { ...state, trabajadores: newTrab };
 
         case types.toggleCheck:

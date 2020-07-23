@@ -1,5 +1,5 @@
-const setHorarioOrden = (trabajadores, automat) => {
-    let orden = setHorario(trabajadores, automat);
+const setHorarioOrden = (trabajadores) => {
+    let orden = setHorario(trabajadores);
     let newOrden = [
         [
             orden[0][3],
@@ -68,9 +68,9 @@ const setHorarioOrden = (trabajadores, automat) => {
     return newOrden;
 };
 
-const setHorario = (trabajadores, automat) => {
+const setHorario = (trabajadores) => {
     const newsemana = cleanSemana();
-    let semana = setSemana(newsemana, trabajadores, automat);
+    let semana = setSemana(newsemana, trabajadores);
     return semana;
 };
 
@@ -82,8 +82,7 @@ export const cleanSemana = () => {
     return semana;
 };
 
-const setSemana = (semana, trabajadores, automat) => {
-    const automatico = automat;
+const setSemana = (semana, trabajadores) => {
     let dia = [
         "lunes",
         "martes",
@@ -108,6 +107,7 @@ const setSemana = (semana, trabajadores, automat) => {
             let diasLibrados = [];
             switch (x) {
                 case 0:
+                    name = "";
                     for (const trab of trabajadores) {
                         diasLibrados = trab.semana.horario.filter(
                             (a) => a.valor === "L" || a.valor === "L1"
@@ -121,6 +121,7 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
+                        if (trab.semana.horario[i].forced) continue;
                         // if (trab.semana.horario[i].valor === "L") {
                         //     name = trab.name;
                         //     break;
@@ -141,12 +142,7 @@ const setSemana = (semana, trabajadores, automat) => {
                         ListaLibrar.unshift(trab.name);
                     }
                     if (ListaLibrar.length > 0) {
-                        name =
-                            ListaLibrar[
-                                Math.ceil(
-                                    Math.random() * ListaLibrar.length + 1
-                                ) - 1
-                            ];
+                        name = ListaLibrar[0];
                     }
                     diasLibrados = [];
                     for (const trab of trabajadores) {
@@ -164,6 +160,7 @@ const setSemana = (semana, trabajadores, automat) => {
                     break;
 
                 case 1:
+                    name = "";
                     for (const trab of trabajadores) {
                         diasLibrados = trab.semana.horario.filter(
                             (a) => a.valor === "L" || a.valor === "L1"
@@ -177,10 +174,12 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
+                        if (trab.semana.horario[i].forced) continue;
                         // if (trab.semana.horario[i].valor === "L1") {
                         //     name = trab.name;
                         //     break;
                         // }
+
                         if (diasLibrados.length >= 2) continue;
                         // if (diasLibrados.length <= 2 && trab.fuenoche) {
                         //     name = trab.name;
@@ -194,7 +193,10 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
-                        name = trab.name;
+                        ListaLibrar.unshift(trab.name);
+                    }
+                    if (ListaLibrar.length > 0) {
+                        name = ListaLibrar[0];
                     }
                     diasLibrados = [];
                     for (const trab of trabajadores) {
@@ -212,6 +214,7 @@ const setSemana = (semana, trabajadores, automat) => {
                     break;
 
                 case 2:
+                    name = "";
                     for (const trab of trabajadores) {
                         if (
                             trab.semana.horario[i].valor === "N" &&
@@ -221,13 +224,13 @@ const setSemana = (semana, trabajadores, automat) => {
                             name = trab.name;
                             break;
                         }
-                        if (automatico) {
-                            if (trab.yajornada) continue;
-                            if (trab.noche < 1) continue;
-                            if (trab.noche > puntos) {
-                                puntos = trab.noche;
-                                name = trab.name;
-                            }
+                        if (trab.semana.horario[i].forced) continue;
+
+                        if (trab.yajornada) continue;
+                        if (trab.noche < 1) continue;
+                        if (trab.noche > puntos) {
+                            puntos = trab.noche;
+                            name = trab.name;
                         }
                     }
                     for (const trab of trabajadores) {
@@ -246,6 +249,7 @@ const setSemana = (semana, trabajadores, automat) => {
                     break;
 
                 case 3:
+                    name = "";
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
                         // if (
@@ -257,21 +261,19 @@ const setSemana = (semana, trabajadores, automat) => {
                         //     break;
                         // }
 
-                        if (automatico) {
-                            if (trab.yajornada) continue;
-                            //if (trab.pista < 1) continue;
-                            if (trab.manana < 1) continue;
-                            if (!trab.fuetarde) {
-                                doblapuntos = trab.manana;
-                            } else {
-                                doblapuntos = 0;
-                            }
-
-                            listaHorario.unshift({
-                                ...trab,
-                                manana: doblapuntos,
-                            });
+                        if (trab.yajornada) continue;
+                        //if (trab.pista < 1) continue;
+                        if (trab.manana < 1) continue;
+                        if (!trab.fuetarde) {
+                            doblapuntos = trab.manana;
+                        } else {
+                            doblapuntos = 0;
                         }
+
+                        listaHorario.unshift({
+                            ...trab,
+                            manana: doblapuntos,
+                        });
                     }
 
                     listaHorario.sort(function (a, b) {
@@ -284,26 +286,26 @@ const setSemana = (semana, trabajadores, automat) => {
 
                         return -1;
                     });
-                    if (automatico) {
-                        while (
-                            listaHorario[0].pista + listaHorario[1].pista ===
-                            0
-                        ) {
-                            listaHorario.splice(1, 1);
-                        }
-                        if (
-                            (listaHorario[0].pista + listaHorario[1].tienda) *
-                                Math.ceil(listaHorario[0].pista / 10) >
-                            (listaHorario[1].pista + listaHorario[0].tienda) *
-                                Math.ceil(listaHorario[1].pista / 10)
-                        ) {
-                            name = listaHorario[0].name;
-                            OtroName = listaHorario[1].name;
-                        } else {
-                            name = listaHorario[1].name;
-                            OtroName = listaHorario[0].name;
-                        }
+
+                    while (
+                        listaHorario[0].pista + listaHorario[1].pista ===
+                        0
+                    ) {
+                        listaHorario.splice(1, 1);
                     }
+                    if (
+                        (listaHorario[0].pista + listaHorario[1].tienda) *
+                            Math.ceil(listaHorario[0].pista / 10) >
+                        (listaHorario[1].pista + listaHorario[0].tienda) *
+                            Math.ceil(listaHorario[1].pista / 10)
+                    ) {
+                        name = listaHorario[0].name;
+                        OtroName = listaHorario[1].name;
+                    } else {
+                        name = listaHorario[1].name;
+                        OtroName = listaHorario[0].name;
+                    }
+
                     listaHorario = [];
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
@@ -350,6 +352,7 @@ const setSemana = (semana, trabajadores, automat) => {
                     break;
 
                 case 5:
+                    name = "";
                     for (const trab of trabajadores) {
                         if (trab.fuenoche) continue;
                         // if (
@@ -361,14 +364,12 @@ const setSemana = (semana, trabajadores, automat) => {
                         //     break;
                         // }
 
-                        if (automatico) {
-                            if (trab.yajornada) continue;
-                            //if (trab.pista < 1) continue;
-                            if (trab.tarde + trab.pista > puntos) {
-                                puntos = trab.tarde;
-                            }
-                            listaHorario.unshift(trab);
+                        if (trab.yajornada) continue;
+                        //if (trab.pista < 1) continue;
+                        if (trab.tarde + trab.pista > puntos) {
+                            puntos = trab.tarde;
                         }
+                        listaHorario.unshift(trab);
                     }
 
                     listaHorario.sort(function (a, b) {
@@ -382,24 +383,22 @@ const setSemana = (semana, trabajadores, automat) => {
                         return -1;
                     });
 
-                    if (automatico) {
-                        try {
-                            if (
-                                listaHorario[0].pista + listaHorario[1].tienda >
-                                listaHorario[1].pista + listaHorario[0].tienda
-                            ) {
-                                name = listaHorario[0].name;
-                                OtroName = listaHorario[1].name;
-                            } else {
-                                name = listaHorario[1].name;
-                                OtroName = listaHorario[0].name;
-                            }
-                        } catch (error) {
-                            console.log(error);
-                            name = "error";
-                            OtroName = "error";
+                    try {
+                        if (
+                            listaHorario[0].pista + listaHorario[1].tienda >
+                            listaHorario[1].pista + listaHorario[0].tienda
+                        ) {
+                            name = listaHorario[0].name;
+                            OtroName = listaHorario[1].name;
+                        } else {
+                            name = listaHorario[1].name;
+                            OtroName = listaHorario[0].name;
                         }
+                    } catch (error) {
+                        name = "error";
+                        OtroName = "error";
                     }
+
                     listaHorario = [];
 
                     for (const trab of trabajadores) {
@@ -448,7 +447,7 @@ const setSemana = (semana, trabajadores, automat) => {
             trab.yajornada = false;
         }
     }
-    console.log("Semana");
+    console.log("trabajadores", trabajadores);
     return semana;
 };
 
