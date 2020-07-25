@@ -16,9 +16,7 @@ export const HorarioScreen = () => {
         store
         // init
     );
-
     const { trabajadores } = state;
-
     useEffect(() => {
         generaHorario(store.trabajadores).then(dispatch);
     }, [trabajadores]);

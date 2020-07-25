@@ -179,7 +179,7 @@ export const store = {
     semanaDefault: [
         [
             {
-                name: ["Lolo"],
+                name: [""],
                 dia: "lunes",
                 hora: "mañana",
                 puesto: "tienda",
