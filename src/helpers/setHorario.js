@@ -1,4 +1,5 @@
 const setHorarioOrden = (trabajadores) => {
+    console.log(trabajadores);
     let orden = setHorario(trabajadores);
     let newOrden = [
         [
@@ -127,35 +128,57 @@ const setSemana = (semana, trabajadores) => {
                             trab.semana.horario[i].valor === "L" &&
                             trab.semana.horario[i].forced
                         ) {
-                            ListaLibrar.unshift(trab.name);
+                            ListaLibrar = [trab.name];
                             break;
                         }
                         if (trab.semana.horario[i].forced) continue;
                         if (diasLibrados.length >= 2) continue;
-                        if (
-                            (diasLibrados.length < 1 && i === 5) ||
-                            (diasLibrados.length < 2 && i === 6)
-                        ) {
-                            ListaLibrar.unshift(trab.name);
+
+                        if (i === 5 && diasLibrados.length === 0) {
+                            ListaLibrar = [trab.name];
+                            break;
+                        }
+                        if (trab.fuesegundanoche && trab.noche < 5) {
+                            ListaLibrar = [trab.name];
                             break;
                         }
                         if (trab.fuelibre) {
-                            ListaLibrar.unshift(trab.name);
-                            break;
+                            ListaLibrar = [
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                            ];
                         }
+
                         ListaLibrar.push(trab.name);
                     }
-                    if (ListaLibrar.length > 0) {
-                        name = ListaLibrar[Math.random() > 0.5 ? 1 : 0];
+
+                    if (ListaLibrar.length > 1) {
+                        name =
+                            ListaLibrar[
+                                Math.floor(Math.random() * ListaLibrar.length)
+                            ];
                     } else {
                         name = ListaLibrar[0];
                     }
+
                     ListaLibrar = [];
                     diasLibrados = [];
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
+                            trab.fuesegundanoche = false;
                             trab.fuetarde = false;
                             trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L";
@@ -180,28 +203,42 @@ const setSemana = (semana, trabajadores) => {
                             trab.semana.horario[i].valor === "L1" &&
                             trab.semana.horario[i].forced
                         ) {
-                            ListaLibrar.unshift(trab.name);
+                            ListaLibrar = [trab.name];
                             break;
                         }
                         if (trab.semana.horario[i].forced) continue;
                         if (diasLibrados.length >= 2) {
                             continue;
                         }
-                        if (
-                            (diasLibrados.length < 1 && i === 5) ||
-                            (diasLibrados.length < 2 && i === 6)
-                        ) {
-                            ListaLibrar.unshift(trab.name);
+                        if (i === 5 && diasLibrados.length === 0) {
+                            ListaLibrar = [trab.name];
                             break;
                         }
                         if (trab.fuelibre) {
-                            ListaLibrar.unshift(trab.name);
-                            break;
+                            ListaLibrar = [
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                                trab.name,
+                            ];
                         }
+
                         ListaLibrar.push(trab.name);
                     }
-                    if (ListaLibrar.length > 0) {
-                        name = ListaLibrar[Math.random() > 0.5 ? 1 : 0];
+                    if (ListaLibrar.length > 1) {
+                        name =
+                            ListaLibrar[
+                                Math.floor(Math.random() * ListaLibrar.length)
+                            ];
                     } else {
                         name = ListaLibrar[0];
                     }
@@ -211,6 +248,7 @@ const setSemana = (semana, trabajadores) => {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
+                            trab.fuesegundanoche = false;
                             trab.fuetarde = false;
                             trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L1";
@@ -243,6 +281,11 @@ const setSemana = (semana, trabajadores) => {
                     }
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
+                            if (trab.fuenoche) {
+                                trab.fuesegundanoche = true;
+                            } else {
+                                trab.fuesegundanoche = false;
+                            }
                             trab.yajornada = true;
                             trab.fuenoche = true;
                             trab.fuetarde = false;

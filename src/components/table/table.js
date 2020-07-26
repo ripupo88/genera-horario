@@ -117,7 +117,11 @@ function SimpleTable1({ props }) {
                                                 key={i + "x" + x}
                                                 myKey={[i, x]}
                                                 value={cel.name[0]}
-                                                options={options}
+                                                options={
+                                                    i >= 5
+                                                        ? options
+                                                        : [cel.name[0]]
+                                                }
                                             />
                                         </TableCell>
                                     );

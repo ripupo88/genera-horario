@@ -12,13 +12,13 @@ export const trabajadoresReducer = (state, action) => {
             //logica aqui
             newTrab = [...state.trabajadores];
             let value = action.payload.value;
+            console.log("value", value);
             let myKey = action.payload.keys;
-            let old;
+            console.log("myKey", myKey);
             for (const t of newTrab) {
                 if (t.name === value) {
-                    old = t.semana.horario[myKey[1]].valor;
-                    t.semana.horario[myKey[0]].valor = puestos[myKey[1]];
-                    t.semana.horario[myKey[0]].forced = true;
+                    t.semana.horario[myKey[1]].valor = puestos[myKey[0]];
+                    t.semana.horario[myKey[1]].forced = true;
                 }
             }
             console.log(newTrab);

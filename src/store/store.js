@@ -16,6 +16,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -40,6 +41,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -64,6 +66,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -88,6 +91,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -112,6 +116,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -137,6 +142,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
@@ -161,6 +167,7 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
+            fuesegundanoche: false,
             fuelibre: false,
             semana: {
                 fecha: "",
