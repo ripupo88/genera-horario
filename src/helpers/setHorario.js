@@ -142,6 +142,10 @@ const setSemana = (semana, trabajadores) => {
                             ListaLibrar = [trab.name];
                             break;
                         }
+                        if (trab.fuelibre && trab.noche === 5) {
+                            ListaLibrar = [trab.name];
+                            break;
+                        }
                         if (trab.fuelibre) {
                             ListaLibrar = [
                                 trab.name,
@@ -214,6 +218,11 @@ const setSemana = (semana, trabajadores) => {
                             ListaLibrar = [trab.name];
                             break;
                         }
+                        if (trab.fuelibre && trab.noche === 5) {
+                            ListaLibrar = [trab.name];
+                            break;
+                        }
+
                         if (trab.fuelibre) {
                             ListaLibrar = [
                                 trab.name,
@@ -446,8 +455,8 @@ const setSemana = (semana, trabajadores) => {
                             OtroName = listaHorario[0].name;
                         }
                     } catch (error) {
-                        name = "error";
-                        OtroName = "error";
+                        name = "";
+                        OtroName = "";
                     }
 
                     listaHorario = [];

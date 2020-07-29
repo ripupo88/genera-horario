@@ -113,16 +113,16 @@ function SimpleTable1({ props }) {
                                             component="th"
                                             scope="row"
                                         >
-                                            <SelectTable
-                                                key={i + "x" + x}
-                                                myKey={[i, x]}
-                                                value={cel.name[0]}
-                                                options={
-                                                    i >= 5
-                                                        ? options
-                                                        : [cel.name[0]]
-                                                }
-                                            />
+                                            {i < 5 ? (
+                                                <p>{cel.name[0]}</p>
+                                            ) : (
+                                                <SelectTable
+                                                    key={i + "x" + x}
+                                                    myKey={[i, x]}
+                                                    value={cel.name[0]}
+                                                    options={options}
+                                                />
+                                            )}
                                         </TableCell>
                                     );
                                 })}
