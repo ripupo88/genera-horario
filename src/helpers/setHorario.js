@@ -347,23 +347,28 @@ const setSemana = (semana, trabajadores) => {
                         return -1;
                     });
 
-                    while (
-                        listaHorario[0].pista + listaHorario[1].pista ===
-                        0
-                    ) {
-                        listaHorario.splice(1, 1);
-                    }
-                    if (
-                        (listaHorario[0].pista + listaHorario[1].tienda) *
-                            Math.ceil(listaHorario[0].pista / 10) >
-                        (listaHorario[1].pista + listaHorario[0].tienda) *
-                            Math.ceil(listaHorario[1].pista / 10)
-                    ) {
-                        name = listaHorario[0].name;
-                        OtroName = listaHorario[1].name;
-                    } else {
-                        name = listaHorario[1].name;
-                        OtroName = listaHorario[0].name;
+                    try {
+                        while (
+                            listaHorario[0].pista + listaHorario[1].pista ===
+                            0
+                        ) {
+                            listaHorario.splice(1, 1);
+                        }
+                        if (
+                            (listaHorario[0].pista + listaHorario[1].tienda) *
+                                Math.ceil(listaHorario[0].pista / 10) >
+                            (listaHorario[1].pista + listaHorario[0].tienda) *
+                                Math.ceil(listaHorario[1].pista / 10)
+                        ) {
+                            name = listaHorario[0].name;
+                            OtroName = listaHorario[1].name;
+                        } else {
+                            name = listaHorario[1].name;
+                            OtroName = listaHorario[0].name;
+                        }
+                    } catch (error) {
+                        name = "";
+                        OtroName = "";
                     }
 
                     listaHorario = [];
@@ -445,12 +450,24 @@ const setSemana = (semana, trabajadores) => {
 
                     try {
                         if (
-                            listaHorario[0].pista + listaHorario[1].tienda >
-                            listaHorario[1].pista + listaHorario[0].tienda
+                            (listaHorario[0].pista + listaHorario[1].tienda) *
+                                Math.ceil(listaHorario[0].pista / 10) >
+                            (listaHorario[1].pista + listaHorario[0].tienda) *
+                                Math.ceil(listaHorario[1].pista / 10)
                         ) {
+                            if (
+                                listaHorario[0].pista === 0 ||
+                                listaHorario[1].tienda === 0
+                            )
+                                throw new Error();
                             name = listaHorario[0].name;
                             OtroName = listaHorario[1].name;
                         } else {
+                            if (
+                                listaHorario[1].pista === 0 ||
+                                listaHorario[0].tienda === 0
+                            )
+                                throw new Error();
                             name = listaHorario[1].name;
                             OtroName = listaHorario[0].name;
                         }

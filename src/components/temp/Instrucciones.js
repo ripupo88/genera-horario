@@ -5,6 +5,42 @@ export const Instrucciones = () => {
     return (
         <div className="pa">
             <h2>Registro de cambios</h2>
+            <hr />
+            <p>
+                <b>v1.1.17</b>
+            </p>
+            <ol>
+                <li>
+                    Configuración inicial. La primera vez que se abra la app, no
+                    tendrá nombres ni parámetros de trabajadores, deberán ser
+                    establecidos manualmente.
+                </li>
+                <li>
+                    Persistencia de datos a nivel local. Una vez establecida una
+                    configuración, los datos van a persistir, así como cualquier
+                    cambio posterior.
+                </li>
+                <li>
+                    Añadida la opción de establecer y/o modificar el nombre del
+                    trabajador al lado de los parámetros.
+                </li>
+                <li>
+                    El botón "VOLVER A EMPEZAR" solamente elimina los días
+                    libres que habían sido puestos manualmente
+                </li>
+                <li>
+                    Añadido el botón “FIJAR LIBRE”, su función es: Una vez
+                    encontrada una combinación de días libres que haya sido
+                    generada automáticamente, dejar de generar nuevas
+                    combinaciones y solo hacer modificaciones mediante los
+                    parámetros en la disposición de los turnos.
+                </li>
+                <li>
+                    Corregido: Si un trabajador tiene “0” en algún parámetro, la
+                    aplicación lanzará un error antes de ponerlo.
+                </li>
+            </ol>
+            <hr />
             <p>
                 <b>v1.1.16</b>
             </p>

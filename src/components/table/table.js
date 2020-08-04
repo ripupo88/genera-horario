@@ -138,7 +138,7 @@ function SimpleTable1({ props }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="row">
+            <div className="row mt-1">
                 <div className="col text-left">
                     <Button
                         type="submit"
