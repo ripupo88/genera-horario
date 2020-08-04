@@ -474,8 +474,6 @@ const setSemana = (semana, trabajadores) => {
                     puesto = "pista";
                     hora = "tarde";
                     break;
-                default:
-                    break;
 
                 case 6:
                     name = OtroName;
@@ -491,6 +489,8 @@ const setSemana = (semana, trabajadores) => {
                     }
                     puesto = "tienda";
                     hora = "tarde";
+                    break;
+                default:
                     break;
             }
 

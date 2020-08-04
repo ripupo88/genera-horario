@@ -11,7 +11,7 @@ function Admin() {
             <NavBar />
             <Container maxWidth="md">
                 <Switch>
-                    <Route exact path="/horario">
+                    <Route exact path="/">
                         <HorarioScreen />
                     </Route>
                     <Route path="/home">

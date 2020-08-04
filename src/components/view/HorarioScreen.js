@@ -10,16 +10,23 @@ import { generaHorario } from "../../actions/generaSemana";
 
 export const myContext = createContext();
 
+const init = () => {
+    if (!!localStorage.getItem("store")) {
+        console.log("si");
+        return JSON.parse(localStorage.getItem("store"));
+    }
+    return store;
+};
+
 export const HorarioScreen = () => {
-    const [state, dispatch] = useReducer(
-        trabajadoresReducer,
-        store
-        // init
-    );
+    const [state, dispatch] = useReducer(trabajadoresReducer, {}, init);
+
     const { trabajadores } = state;
+
     useEffect(() => {
-        generaHorario(store.trabajadores).then(dispatch);
-    }, []);
+        generaHorario(state.trabajadores).then(dispatch);
+        localStorage.setItem("store", JSON.stringify(state));
+    }, [trabajadores]);
 
     return (
         <myContext.Provider value={{ state, dispatch }}>

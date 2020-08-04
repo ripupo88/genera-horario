@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
         width: "2em",
         marginLeft: "2em",
     },
+    inputName: {
+        width: "6em",
+        marginLeft: "2em",
+    },
 }));
 
 export default function SimpleCollapse() {
@@ -65,6 +69,13 @@ function SimpleCollapse1({ props }) {
         dispatch({
             type: types.setNoche,
             payload: { value: e.target.value * 1, index },
+        });
+    };
+
+    const handleInputChangeName = (e) => {
+        dispatch({
+            type: types.setName,
+            payload: { value: e.target.value, index },
         });
     };
 
@@ -143,6 +154,21 @@ function SimpleCollapse1({ props }) {
                     min: 0,
                     max: 5,
                     type: "number",
+                    "aria-labelledby": "input-slider",
+                }}
+            />
+            <TextField
+                className={classes.inputName}
+                label="Nombre"
+                value={name}
+                margin="dense"
+                onChange={handleInputChangeName}
+                //onBlur={handleBlur}
+                inputProps={{
+                    step: 1,
+                    min: 0,
+                    max: 5,
+                    type: "text",
                     "aria-labelledby": "input-slider",
                 }}
             />

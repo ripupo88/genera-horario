@@ -48,7 +48,7 @@ export const NavBar = () => {
                         </li>
                     </ul>
                     <div className="ml-5">
-                        <b>v1.1.10</b>
+                        <b>v1.1.16</b>
                     </div>
                 </div>
             </dic>

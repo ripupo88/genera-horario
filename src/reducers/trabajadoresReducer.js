@@ -1,9 +1,9 @@
 import { types } from "./types";
+import { store } from "../store/store";
 
 export const trabajadoresReducer = (state, action) => {
     const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
     let newTrab;
-
     switch (action.type) {
         case types.generaHorario:
             return { ...state, semanaDefault: action.payload };
@@ -22,15 +22,16 @@ export const trabajadoresReducer = (state, action) => {
                 }
             }
             console.log(newTrab);
-            // for (const tt of newTrab) {
-            //     if (
-            //         tt.semana.horario[myKey[0]].valor === puestos[myKey[1]] &&
-            //         tt.name !== value
-            //     ) {
-            //         tt.semana.horario[myKey[0]].valor = old;
-            //         //tt.semana.horario[myKey[1]].forced = false;
-            //     }
-            // }
+            for (const tt of newTrab) {
+                if (
+                    tt.semana.horario[myKey[1]].valor === puestos[myKey[0]] &&
+                    tt.name !== value
+                ) {
+                    console.log("salta");
+                    tt.semana.horario[myKey[1]].valor = null;
+                    tt.semana.horario[myKey[1]].forced = false;
+                }
+            }
             return { ...state, trabajadores: newTrab };
 
         case types.toggleCheck:
@@ -70,9 +71,13 @@ export const trabajadoresReducer = (state, action) => {
             newTrab[action.payload.index].noche = action.payload.value;
             return { ...state, trabajadores: newTrab };
 
+        case types.setName:
+            newTrab = [...state.trabajadores];
+            newTrab[action.payload.index].name = action.payload.value;
+            return { ...state, trabajadores: newTrab };
+
         case types.reset:
-            newTrab = action.payload;
-            return { ...newTrab };
+            return { ...state, trabajadores: [...state.trabajadores] };
 
         default:
             return state;

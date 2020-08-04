@@ -14,6 +14,9 @@ import { types } from "../../reducers/types";
 import { Button } from "@material-ui/core";
 import { generaHorario } from "../../actions/generaSemana";
 import { store } from "../../store/store";
+import { resetAction } from "../../actions/resetAction";
+import { trabajadoresReducer } from "../../reducers/trabajadoresReducer";
+import { fijarAction } from "../../actions/fijarAction";
 
 const useStyles = makeStyles({
     table: {
@@ -38,12 +41,16 @@ function SimpleTable1({ props }) {
 
     const handleGenerar = (e) => {
         e.preventDefault();
-        generaHorario(store.trabajadores).then(dispatch);
+        generaHorario(trabajadores).then(dispatch);
     };
 
     const reiniciaTodo = () => {
-        dispatch({ type: types.reset, payload: store });
+        resetAction(trabajadores).then(dispatch);
         //localStorage.removeItem("trabajadoresStorage");
+    };
+
+    const handleFijar = () => {
+        fijarAction(trabajadores).then(dispatch);
     };
 
     const cabecera = ["", "L", "M", "X", "J", "V", "S", "D"];
@@ -131,29 +138,41 @@ function SimpleTable1({ props }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div style={{ marginTop: "5px", float: "left" }}>
-                <Button
-                    type="submit"
-                    size="small"
-                    color="primary"
-                    className={classes.margin}
-                    onClick={reiniciaTodo}
-                >
-                    Volver a empezar
-                </Button>
-            </div>
-            <div style={{ marginTop: "5px", float: "right" }}>
-                <Button
-                    type="submit"
-                    size="small"
-                    color="primary"
-                    className={classes.margin}
-                    onClick={handleGenerar}
-                >
-                    Generar
-                </Button>
+            <div className="row">
+                <div className="col text-left">
+                    <Button
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={reiniciaTodo}
+                    >
+                        Volver a empezar
+                    </Button>
+                </div>
+                <div className="col text-center">
+                    <Button
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={handleFijar}
+                    >
+                        Fijar libres
+                    </Button>
+                </div>
+                <div className="col text-right">
+                    <Button
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={handleGenerar}
+                    >
+                        Generar
+                    </Button>
 
-                {/* <FormControlLabel
+                    {/* <FormControlLabel
                     className="cheked"
                     style={{ color: "#5164C2" }}
                     disabled={desabled}
@@ -169,6 +188,7 @@ function SimpleTable1({ props }) {
                     }
                     label="Automatico"
                 /> */}
+                </div>
             </div>
         </>
     );

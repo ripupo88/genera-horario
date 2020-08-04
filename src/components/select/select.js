@@ -40,13 +40,13 @@ export const SelectTable1 = React.memo(({ props }) => {
     const { dispatch, myKey, value, options } = props;
     //const puestos = ["Mt", "M", "Tt", "T", "N", "L", "L1"];
 
-    const handleChange = (e) => {
-        console.log(e);
+    const handleChange = (item) => {
+        console.log("EEE", item);
         dispatch({
             type: types.setManual,
             payload: {
                 keys: [myKey[0], myKey[1]],
-                value: e.target.value,
+                value: item,
             },
         });
     };
@@ -56,16 +56,19 @@ export const SelectTable1 = React.memo(({ props }) => {
             labelId="demo-customized-select-label"
             id="demo-customized-select"
             value={value}
-            onChange={handleChange}
             input={<BootstrapInput />}
         >
-            <MenuItem value="">
+            <MenuItem onClick={() => handleChange(null)} value="">
                 <em>None</em>
             </MenuItem>
             {options.map((item, i) => {
                 if (item === undefined) console.log(item);
                 return (
-                    <MenuItem key={i} value={item}>
+                    <MenuItem
+                        onClick={() => handleChange(item)}
+                        key={i}
+                        value={item}
+                    >
                         {item}
                     </MenuItem>
                 );
