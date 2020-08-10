@@ -14,7 +14,6 @@ export const resetAction = async (trabajadores) => {
                 { valor: null, forced: false },
             ],
         };
-        console.log(trab);
     }
     return {
         type: types.reset,

@@ -1,5 +1,4 @@
 const setHorarioOrden = (trabajadores) => {
-    console.log(trabajadores);
     let orden = setHorario(trabajadores);
     let newOrden = [
         [
@@ -117,28 +116,29 @@ const setSemana = (semana, trabajadores) => {
             let diasLibrados = [];
             switch (x) {
                 case 0:
+                    for (const trab of trabajadores) {
+                        trab.yajornada = false;
+                    }
                     name = "";
                     for (const trab of trabajadores) {
                         diasLibrados = trab.semana.horario.filter(
                             (a) => a.valor === "L" || a.valor === "L1"
                         );
-
-                        if (trab.yajornada) continue;
+                        //if (trab.yajornada) continue;
                         if (
                             trab.semana.horario[i].valor === "L" &&
                             trab.semana.horario[i].forced
                         ) {
+                            if (i === 5) console.log("forced");
                             ListaLibrar = [trab.name];
                             break;
                         }
-                        if (trab.semana.horario[i].forced) continue;
-                        if (diasLibrados.length >= 2) continue;
-
-                        if (i === 5 && diasLibrados.length === 0) {
-                            ListaLibrar = [trab.name];
-                            break;
+                        //if (trab.semana.horario[i].forced) continue;
+                        if (diasLibrados.length >= 2) {
+                            continue;
                         }
-                        if (trab.fuesegundanoche && trab.noche < 5) {
+                        if (i === 5 && !diasLibrados.length) {
+                            if (i === 5) console.log("5 sin Librar");
                             ListaLibrar = [trab.name];
                             break;
                         }
@@ -146,6 +146,7 @@ const setSemana = (semana, trabajadores) => {
                             ListaLibrar = [trab.name];
                             break;
                         }
+                        //////////////////////////////////////////////////////////////////////////////////////////////////
                         if (trab.fuelibre) {
                             ListaLibrar = [
                                 trab.name,
@@ -175,7 +176,6 @@ const setSemana = (semana, trabajadores) => {
                     } else {
                         name = ListaLibrar[0];
                     }
-
                     ListaLibrar = [];
                     diasLibrados = [];
                     for (const trab of trabajadores) {
@@ -251,6 +251,7 @@ const setSemana = (semana, trabajadores) => {
                     } else {
                         name = ListaLibrar[0];
                     }
+
                     ListaLibrar = [];
                     diasLibrados = [];
                     for (const trab of trabajadores) {
@@ -520,9 +521,6 @@ const setSemana = (semana, trabajadores) => {
             };
 
             name = "";
-        }
-        for (const trab of trabajadores) {
-            trab.yajornada = false;
         }
     }
 

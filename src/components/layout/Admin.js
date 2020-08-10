@@ -8,7 +8,7 @@ import { Container } from "@material-ui/core";
 function Admin() {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <Container maxWidth="md">
                 <Switch>
                     <Route exact path="/">
