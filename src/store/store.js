@@ -16,8 +16,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -41,8 +41,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -66,8 +66,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -91,8 +91,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -116,8 +116,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -142,8 +142,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [
@@ -167,8 +167,8 @@ export const store = {
             yajornada: false,
             fuetarde: false,
             fuenoche: false,
-            fuesegundanoche: false,
             fuelibre: false,
+            domingo: 0,
             semana: {
                 fecha: "",
                 horario: [

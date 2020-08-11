@@ -4,17 +4,45 @@ import "./INstrucciones.css";
 export const Instrucciones = () => {
     return (
         <div className="pa">
+            <h1>v1.1.18</h1>
             <h2>Registro de cambios</h2>
+            <hr />
+            <p>
+                <b>v1.1.18</b>
+            </p>
+            <ol>
+                <li>Eliminada la barra de navegación</li>
+
+                <li>
+                    Solucionado el error que no dejaba poner manualmente un
+                    trabajador el sábado, o lo quitaba al generar varios
+                    horarios
+                </li>
+
+                <li>
+                    Agregada la opción "Domingo", para seleccionar en que turno
+                    estuvo el trabajador ese día de la semana anterior. Solo es
+                    necesario señalar los trabajadores que estuvieron de tarde y
+                    librando
+                </li>
+
+                <li>
+                    Para obtener los mejores resultados en "Obligatorio" colocar
+                    manualmente la persona que está de noche y también quien lo
+                    vaya a sustituir los días de descanso
+                </li>
+                <li>
+                    Agregado el botón “ELIMINAR TODO” que como su nombre indica
+                    elimina toda la información y recarga la página. Este botón
+                    es necesario para aplicar los cambios de la nueva versión.
+                    Habrá que volver a configurarlo todo.
+                </li>
+            </ol>
             <hr />
             <p>
                 <b>v1.1.17</b>
             </p>
             <ol>
-                <li>
-                    Configuración inicial. La primera vez que se abra la app, no
-                    tendrá nombres ni parámetros de trabajadores, deberán ser
-                    establecidos manualmente.
-                </li>
                 <li>
                     Persistencia de datos a nivel local. Una vez establecida una
                     configuración, los datos van a persistir, así como cualquier

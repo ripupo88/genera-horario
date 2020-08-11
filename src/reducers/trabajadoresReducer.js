@@ -76,6 +76,11 @@ export const trabajadoresReducer = (state, action) => {
             newTrab[action.payload.index].name = action.payload.value;
             return { ...state, trabajadores: newTrab };
 
+        case types.setDomingo:
+            newTrab = [...state.trabajadores];
+            newTrab[action.payload.index].domingo = action.payload.value;
+            return { ...state, trabajadores: newTrab };
+
         case types.reset:
             return { ...state, trabajadores: [...state.trabajadores] };
 

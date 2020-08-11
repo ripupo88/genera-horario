@@ -1,5 +1,6 @@
 const setHorarioOrden = (trabajadores) => {
-    let orden = setHorario(trabajadores);
+    let defaultTrab = JSON.parse(JSON.stringify(trabajadores));
+    let orden = setHorario(trabajadores, defaultTrab);
     let newOrden = [
         [
             orden[0][3],
@@ -68,9 +69,9 @@ const setHorarioOrden = (trabajadores) => {
     return newOrden;
 };
 
-const setHorario = (trabajadores) => {
+const setHorario = (trabajadores, defaultTrab) => {
     const newsemana = cleanSemana();
-    let semana = setSemana(newsemana, trabajadores);
+    let semana = setSemana(newsemana, trabajadores, defaultTrab);
     return semana;
 };
 
@@ -82,7 +83,7 @@ export const cleanSemana = () => {
     return semana;
 };
 
-const setSemana = (semana, trabajadores) => {
+const setSemana = (semana, trabajadores, defaultTrab) => {
     let dia = [
         "lunes",
         "martes",
@@ -100,15 +101,26 @@ const setSemana = (semana, trabajadores) => {
     let OtroName = "";
     let listaHorario = [];
     let ListaLibrar = [];
+    let isHight = false;
+
     for (const trab of trabajadores) {
         trab.yajornada = false;
         trab.fuenoche = false;
-        trab.fuetarde = false;
-        trab.fuelibre = false;
+        if (trab.domingo === 1) {
+            trab.fuetarde = true;
+        } else {
+            trab.fuetarde = false;
+        }
+        if (trab.domingo === 2) {
+            trab.fuelibre = true;
+        } else {
+            trab.fuelibre = false;
+        }
         for (const cada of trab.semana.horario) {
             if (cada.forced === false) cada.valor = null;
         }
     }
+
     for (let i = 0; i < semana.length; i++) {
         for (let x = 0; x < semana[i].length; x++) {
             puntos = -1;
@@ -140,14 +152,12 @@ const setSemana = (semana, trabajadores) => {
                         if (i === 5 && !diasLibrados.length) {
                             if (i === 5) console.log("5 sin Librar");
                             ListaLibrar = [trab.name];
-                            break;
+                            isHight = true;
+                            continue;
                         }
-                        if (trab.fuelibre && trab.noche === 5) {
-                            ListaLibrar = [trab.name];
-                            break;
-                        }
+
                         //////////////////////////////////////////////////////////////////////////////////////////////////
-                        if (trab.fuelibre) {
+                        if (trab.fuelibre && ListaLibrar.length === 0) {
                             ListaLibrar = [
                                 trab.name,
                                 trab.name,
@@ -164,8 +174,9 @@ const setSemana = (semana, trabajadores) => {
                                 trab.name,
                             ];
                         }
-
-                        ListaLibrar.push(trab.name);
+                        if (!isHight) {
+                            ListaLibrar.push(trab.name);
+                        }
                     }
 
                     if (ListaLibrar.length > 1) {
@@ -182,7 +193,7 @@ const setSemana = (semana, trabajadores) => {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
-                            trab.fuesegundanoche = false;
+
                             trab.fuetarde = false;
                             trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L";
@@ -191,6 +202,7 @@ const setSemana = (semana, trabajadores) => {
                     }
                     puesto = "";
                     hora = "libre";
+                    isHight = false;
                     break;
 
                 case 1:
@@ -214,16 +226,15 @@ const setSemana = (semana, trabajadores) => {
                         if (diasLibrados.length >= 2) {
                             continue;
                         }
-                        if (i === 5 && diasLibrados.length === 0) {
+                        if (i === 5 && !diasLibrados.length) {
+                            if (i === 5) console.log("5 sin Librar");
                             ListaLibrar = [trab.name];
-                            break;
-                        }
-                        if (trab.fuelibre && trab.noche === 5) {
-                            ListaLibrar = [trab.name];
-                            break;
+                            isHight = true;
+                            continue;
                         }
 
-                        if (trab.fuelibre) {
+                        //////////////////////////////////////////////////////////////////////////////////////////////////
+                        if (trab.fuelibre && ListaLibrar.length === 0) {
                             ListaLibrar = [
                                 trab.name,
                                 trab.name,
@@ -240,8 +251,9 @@ const setSemana = (semana, trabajadores) => {
                                 trab.name,
                             ];
                         }
-
-                        ListaLibrar.push(trab.name);
+                        if (!isHight) {
+                            ListaLibrar.push(trab.name);
+                        }
                     }
                     if (ListaLibrar.length > 1) {
                         name =
@@ -258,7 +270,7 @@ const setSemana = (semana, trabajadores) => {
                         if (trab.name === name) {
                             trab.yajornada = true;
                             trab.fuenoche = false;
-                            trab.fuesegundanoche = false;
+
                             trab.fuetarde = false;
                             trab.fuelibre = true;
                             trab.semana.horario[i].valor = "L1";
@@ -267,6 +279,7 @@ const setSemana = (semana, trabajadores) => {
                     }
                     puesto = "";
                     hora = "libre";
+                    isHight = false;
                     break;
 
                 case 2:
@@ -291,11 +304,6 @@ const setSemana = (semana, trabajadores) => {
                     }
                     for (const trab of trabajadores) {
                         if (trab.name === name) {
-                            if (trab.fuenoche) {
-                                trab.fuesegundanoche = true;
-                            } else {
-                                trab.fuesegundanoche = false;
-                            }
                             trab.yajornada = true;
                             trab.fuenoche = true;
                             trab.fuetarde = false;
